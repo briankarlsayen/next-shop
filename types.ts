@@ -19,3 +19,7 @@ export interface Rating {
   rate:  number;
   count: number;
 }
+
+export interface Products {
+  products: Product[];
+}
