@@ -10,7 +10,6 @@ import styles from '../styles/Home.module.css'
 import { Product } from '../types'
 
 const Home: NextPage<{products: Product[], categories: any}> = ({ products, categories }) => {
-  console.log('categories', categories)
   return (
     <div>
       <Head>
@@ -36,7 +35,6 @@ const Home: NextPage<{products: Product[], categories: any}> = ({ products, cate
         </div>
       </section>
       <Categories categories={categories} />
-      <Footer />
       {/* <div className='w-full text-center py-20'>
         <h1 className='text-6xl font-bold'>Welcome noob</h1>
         <p className='text-lg'>Shop now to be stronger than ever.</p>
@@ -54,7 +52,6 @@ const Home: NextPage<{products: Product[], categories: any}> = ({ products, cate
 }
 
 export const getStaticProps: GetStaticProps = async(context) => {
-  // const res = await fetch("https://fakestoreapi.com/products/categories")
   const res = await fetch("https://fakestoreapi.com/products/");
   const products = await res.json()
 
