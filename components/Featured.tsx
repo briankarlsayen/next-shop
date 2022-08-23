@@ -14,7 +14,7 @@ export const Featured = ({products}: Products) => {
           <p className="font-semibold uppercase cursor-pointer">Add to Cart</p>
         </div>
       </li>);
-  }
+    }
   return (
     <section id="featured" className='py-20 x-spacing'>
       <div className="py-8">

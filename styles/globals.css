@@ -24,3 +24,15 @@ a {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.text-header {
+  @apply text-3xl font-semibold;
+}
+
+.text-subheader {
+  @apply uppercase text-base;
+}
+
+.footer-list {
+  @apply pb-8
+}

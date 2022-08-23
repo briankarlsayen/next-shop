@@ -2,13 +2,15 @@ import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Carousel from '../components/Carousel'
+import { Categories } from '../components/Categories'
 import { Featured } from '../components/Featured'
+import { Footer } from '../components/Footer'
 import ProductCard from '../components/ProductCard'
 import styles from '../styles/Home.module.css'
 import { Product } from '../types'
 
-const Home: NextPage<{products: Product[]}> = ({ products }) => {
-  
+const Home: NextPage<{products: Product[], categories: any}> = ({ products, categories }) => {
+  console.log('categories', categories)
   return (
     <div>
       <Head>
@@ -33,7 +35,9 @@ const Home: NextPage<{products: Product[]}> = ({ products }) => {
           </div>
         </div>
       </section>
-      <div className='w-full text-center py-20'>
+      <Categories categories={categories} />
+      <Footer />
+      {/* <div className='w-full text-center py-20'>
         <h1 className='text-6xl font-bold'>Welcome noob</h1>
         <p className='text-lg'>Shop now to be stronger than ever.</p>
       </div>
@@ -44,7 +48,7 @@ const Home: NextPage<{products: Product[]}> = ({ products }) => {
           )
         })}
 
-      </div>
+      </div> */}
     </div>
   )
 }
@@ -53,10 +57,14 @@ export const getStaticProps: GetStaticProps = async(context) => {
   // const res = await fetch("https://fakestoreapi.com/products/categories")
   const res = await fetch("https://fakestoreapi.com/products/");
   const products = await res.json()
-  
+
+
+  const getCategories = await fetch("https://fakestoreapi.com/products/categories")
+  const categories = await getCategories.json()
   return {
     props: {
-      products
+      products,
+      categories,
     }
   }
 }
