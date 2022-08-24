@@ -3,7 +3,7 @@ import { Product } from '../../../types'
 
 const product = ({product}:any) => {
   return (
-    <div className="flex w-full">
+    <div className="flex w-full h-screen">
       <div className="flex justify-between max-w-[80rem] m-auto gap-4 pt-20 md:flex-row flex-col items-center">
         <div className="h-[30rem] w-[30rem] items-center flex flex-col border-2" key={product.id} >
           <img className='h-full w-full object-contain object-center p-4 flex-1' src={product.image} />
