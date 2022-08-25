@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Related from '../../../components/Related'
 import { Product } from '../../../types'
 import { useRouter } from 'next/router'
@@ -11,7 +11,8 @@ type ProductProps = {
 const product = ({product, products}:ProductProps) => {
   const [itemCount, setItemCount] = useState(1)
   const [itemPrice, setItemPrice] = useState(product.price)
-  const handleButtonClick = (e:any) => {
+  const [itemDuplicate, setItemDuplicate] = useState(false)
+  const handleUpdateCount = (e:any) => {
     console.log('e', e.target.id)
     if(e.target.id === "minus") {
       if(itemCount > 1) {
@@ -24,8 +25,35 @@ const product = ({product, products}:ProductProps) => {
         setItemPrice((itemCount + 1) * product.price)
       }
     }
-    
   }
+  useEffect(() => {
+    const cartItems = localStorage.getItem('cart')
+    if(cartItems) {
+      let parsedCart = JSON.parse(cartItems);
+      const duplicateItem = parsedCart.filter((cart:any) => cart.id === product.id)
+      if(duplicateItem.length) {
+        setItemDuplicate(true)
+      }
+    }
+  }, [])
+
+  const handleAddCart = () => {
+    const cartItems = localStorage.getItem('cart')
+    if(cartItems) {
+      let parsedCart = JSON.parse(cartItems);
+      const duplicateItem = parsedCart.filter((cart:any) => cart.id === product.id)
+      if(!duplicateItem.length) {
+        const withItemCount = {...product, quantity: itemCount, subTotal: itemPrice}
+        const updateCart = [...parsedCart, withItemCount]
+        localStorage.setItem('cart', JSON.stringify(updateCart));
+        setItemDuplicate(true)
+      }
+    } else {
+      const createCart = [{...product, quantity: itemCount, subTotal: itemPrice}]
+      localStorage.setItem('cart', JSON.stringify(createCart));
+    }
+  }
+
   return (
     <div className="w-full">
       <div className="flex justify-between max-w-[80rem] m-auto gap-4 pt-20 md:flex-row flex-col items-center h-[calc(100vh-5rem)]">
@@ -42,11 +70,14 @@ const product = ({product, products}:ProductProps) => {
             <div>
               <div className='flex'>
                 <div className='border-2 px-4 py-2 mr-2 flex items-center w-full max-w-[8rem] justify-between'>
-                  <span id="minus" className='text-3xl cursor-pointer' onClick={(e)=>handleButtonClick(e)}>&#45;</span>
+                  <span id="minus" className='text-3xl cursor-pointer' onClick={(e)=>handleUpdateCount(e)}>&#45;</span>
                   <p className='text-xl'>{itemCount}</p>
-                  <span id="add" className='text-3xl cursor-pointer'  onClick={(e)=>handleButtonClick(e)}>&#43;</span>
+                  <span id="add" className='text-3xl cursor-pointer'  onClick={(e)=>handleUpdateCount(e)}>&#43;</span>
                 </div>
-                <button className="font-semibold uppercase cursor-pointer border-2 border-black bg-black text-white px-4 py-2">Add to Cart</button>
+                { !itemDuplicate ? 
+                  <button className="font-semibold uppercase cursor-pointer border-2 border-black bg-black text-white px-4 py-2" onClick={handleAddCart}>Add to Cart</button> :
+                  <button className="font-semibold uppercase cursor-pointer border-2  bg-gray-300 text-black px-4 py-2" onClick={handleAddCart}>View Cart</button> 
+                }
               </div>
               <p className='uppercase pt-4'>Add to wishlist</p>
               <p className='border-2 p-2 my-2 w-max'>{product.category}</p>

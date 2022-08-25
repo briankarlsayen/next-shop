@@ -8,6 +8,22 @@ export interface Product {
   rating:      Rating;
 }
 
+export interface CartItem {
+  id:          number;
+  title:       string;
+  price:       number;
+  description: string;
+  category:    ProductCategory;
+  image:       string;
+  rating:      Rating;
+  subTotal:    number;
+  quantity:    number;
+}
+
+export interface CartItems {
+  items: CartItem[]
+}
+
 export enum ProductCategory {
   Electronics = "electronics",
   Jewelery = "jewelery",

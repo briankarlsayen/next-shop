@@ -1,23 +1,36 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
+import { CartItem, CartItems } from '../types';
 
 const cart = () => {
-  const items = [ 
-    {
-      label: "Piece of thingy",
-      price: 24.5,
-      quantity: 3,
-    },
-    {
-      label: "Piece of thingyasdasfas aisudgiau",
-      price: 14.5,
-      quantity: 23,
-    },
-    {
-      label: "Piece of thingy asdashoias daihd aiodhiaohdhasd ioad asidohas odias",
-      price: 21.5,
-      quantity: 31,
+  // const items = [ 
+  //   {
+  //     label: "Piece of thingy",
+  //     price: 24.5,
+  //     quantity: 3,
+  //   },
+  //   {
+  //     label: "Piece of thingyasdasfas aisudgiau",
+  //     price: 14.5,
+  //     quantity: 23,
+  //   },
+  //   {
+  //     label: "Piece of thingy asdashoias daihd aiodhiaohdhasd ioad asidohas odias",
+  //     price: 21.5,
+  //     quantity: 31,
+  //   }
+  // ]
+
+  const [items, setItems] = useState<CartItem[]>([])
+  useEffect(() => {
+    const cartItems = localStorage.getItem('cart');
+    if(cartItems) {
+      let parsedCart = JSON.parse(cartItems);
+      setItems(parsedCart)
     }
-  ]
+  }, [])
+
+  
+
   return (
     <div className='x-spacing'>
       <p className='w-full'>Home / Cart</p>
@@ -35,14 +48,14 @@ const cart = () => {
           <div className='py-4'>
             {items.map(item => {
               return(
-                <ul className='flex justify-between p-4'>
+                <ul key={item.id} className='flex justify-between p-4'>
                   <li className='md:flex hidden basis-1/6 items-center  justify-center'>
                     <div className='w-8 h-8 border-2'></div>
                   </li>
-                  <li className='basis-2/6'>{item.label}</li>
+                  <li className='basis-2/6'>{item.title}</li>
                   <li className='basis-1/6'>${item.price}</li>
                   <li className='basis-1/6'>x{item.quantity}</li>
-                  <li className='basis-1/6'>${item.price * item.quantity}</li>
+                  <li className='basis-1/6'>${item.subTotal}</li>
                 </ul>
               )
             })}
@@ -61,7 +74,7 @@ const cart = () => {
             <form>
               <ul>
                 <li className='flex justify-between'>
-                  <input type="radio" id="flat" value="flat" checked />
+                  <input type="radio" id="flat" value="flat" defaultChecked />
                   <label className='pl-2' htmlFor='flat'>Flat rate</label>
                 </li>
                 <li className='flex justify-between'>
