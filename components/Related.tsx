@@ -9,7 +9,7 @@ const Related = ({products}: Products) => {
       <ul className="flex w-full flex-wrap gap-4 justify-between">
         { products.slice(0,3).map(product => {
           return(
-            <ProductCard id={product.id} title={product.title} image={product.image} price={product.price}  />
+            <ProductCard key={product.id} id={product.id} title={product.title} image={product.image} price={product.price}  />
           )
         })}
       </ul>
