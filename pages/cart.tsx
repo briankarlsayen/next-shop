@@ -1,41 +1,55 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import StoreItem from '../components/StoreItem';
-import { CartItem, CartItems } from '../types';
+import { CartItem, CartItems, SubTotalPrice } from '../types';
 
 const cart = () => {
   const [items, setItems] = useState<CartItem[]>([])
-  const [itemsSubtotal, setItemsSubtotal] = useState(0)
-  const [totalArr, setTotalArr] = useState([{
+  const [totalArr, setTotalArr] = useState<SubTotalPrice[]>([{
     id: 0,
     subTotal: 0
   }])
-  console.log('itemArr', totalArr)
+  const [cartSubTotal, setCartSubTotal] = useState(0)
+  const [callback, setCallback] = useState(false)
+  
+  function updateCart (cartArr:any) {
+    localStorage.setItem('cart', JSON.stringify(cartArr));
+    setCallback(!callback)
+  }
+  useEffect(() => {
+    setItems(items)
+  }, [callback])
 
   useEffect(() => {
     const cartItems = localStorage.getItem('cart');
     if(cartItems) {
       let parsedCart = JSON.parse(cartItems);
       setItems(parsedCart)
-      setItemsSubtotal(computeSubtotal(parsedCart))
+      inititalCartTotal(parsedCart)
     }
-  }, [])
+  }, []) 
 
-  const computeSubtotal = (cartItems: CartItem[]) => {
-    let total = 0;
-    for(let value of cartItems) {
-      total = total + (value.price * value.quantity)
+  const inititalCartTotal = (parsedCart:any) => {
+    const cartSubTotalArr = [];
+    for(let value of parsedCart) {
+      cartSubTotalArr.push({id: value.id, subTotal: value.subTotal})
     }
-    return total
+    setTotalArr(cartSubTotalArr)
+    cartFinalSubTotal(cartSubTotalArr)
   }
 
-  
+  const cartFinalSubTotal = (totalArr:SubTotalPrice[]) => {
+    let totalArrSum = 0;
+    for(let value of totalArr) {
+      totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2))
+    }
+    setCartSubTotal(totalArrSum)
+  }
 
   return (
     <div className='x-spacing'>
       <p className='w-full'>Home / Cart</p>
       <div className='max-w-[80rem] m-auto'>
         <div className='justify-center selection:w-full flex flex-col items-center pb-20'>
-        <h1>{totalArr.map(item=> <p>{item.subTotal}</p>)}</h1>
         <h2 className='text-4xl pb-12 font-semibold'>Shopping Cart</h2>
         <div className='max-w-[80rem] w-full border-2'>
           <div className='flex justify-between border-b-2 p-4'>
@@ -47,8 +61,9 @@ const cart = () => {
           </div>
           <div className='py-4'>
             {items.map(item => {
+              console.log('run', item)
               return(
-                <StoreItem key={item.id} item={item} totalArr={totalArr} setTotalArr={setTotalArr} />
+                <StoreItem key={item.id} item={item} items={items} setItems={setItems} totalArr={totalArr} setTotalArr={setTotalArr} updateCart={updateCart} cartFinalSubTotal={cartFinalSubTotal} />
               )
             })}
           </div>
@@ -59,7 +74,7 @@ const cart = () => {
         <div className='max-w-[35rem] border-2'>
           <div className='flex justify-between p-4 border-b-2'>
             <h3 className='text-xl'>Subtotal</h3>
-            <p>${itemsSubtotal}</p>
+            <p>${cartSubTotal}</p>
           </div>
           <div className='flex justify-between p-4 border-b-2'>
             <h3 className='text-xl'>Shipping</h3>
@@ -82,7 +97,7 @@ const cart = () => {
           </div>
           <div className='flex justify-between p-4'>
             <h3 className='text-xl'>Total</h3>
-            <p>${itemsSubtotal}</p>
+            <p>${cartSubTotal}</p>
           </div>
         </div>
       </div>

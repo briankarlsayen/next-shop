@@ -1,53 +1,68 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { CartItem } from '../types';
 
-const StoreItem = ({item, totalArr, setTotalArr}:any) => {
+const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, cartFinalSubTotal}:any) => {
   const [itemCount, setItemCount] = useState(item.quantity)
   const [itemPrice, setItemPrice] = useState(item.price * item.quantity)
   const handleUpdateCount = (e:any) => {
     console.log('e', e.target.id)
     if(e.target.id === "minus") {
       if(itemCount > 1) {
-        setItemCount(itemCount - 1)
-        setItemPrice((itemCount - 1) * item.price)
-        // setTotalArr(totalArr, {
-        //   id: item.id,
-        //   subTotal: (itemCount - 1) * item.price
-        // })
+        let newCount = itemCount - 1
+
+        setItemCount(newCount)
+        setItemPrice((newCount) * item.price)
+
+        console.log('item', item)
+
         const params = {
-          id: item.id,
-          subTotal: (itemCount - 1) * item.price
+          ...item,
+          subTotal: (newCount) * item.price,
+          quantity: newCount,
         }
-        setTotalArr([...totalArr, params])
+        console.log('params', params)
+        const newCartArr = items
+        const itemIndex = newCartArr.findIndex((data: CartItem) => data.id === item.id )
+        newCartArr[itemIndex] = params
+
+        cartFinalSubTotal(newCartArr)
+        updateCart(newCartArr)
       }
     } else {
       if(itemCount < 99) {
-        setItemCount(itemCount + 1)
-        setItemPrice((itemCount + 1) * item.price)
+        let newCount = itemCount + 1
+        setItemCount(newCount)
+        setItemPrice((newCount) * item.price)
 
         const params = {
-          id: item.id,
-          subTotal: (itemCount + 1) * item.price
+          ...item,
+          subTotal: (newCount) * item.price,
+          quantity: newCount,
         }
-        setTotalArr([...totalArr, params])
-        console.log('totalArr', totalArr)
+        const newCartArr = items
+        const itemIndex = newCartArr.findIndex((data: CartItem) => data.id === item.id )
+        newCartArr[itemIndex] = params
+
+        cartFinalSubTotal(newCartArr)
+        updateCart(newCartArr)
       }
     }
   }
 
-  useEffect(() => {
-    const params = {
-      id: item.id,
-      subTotal: item.subTotal
-    }
-    console.log('item', item)
-    setTotalArr([...totalArr, params])
-  }, [])
+  const handleDeleteItem = () => {
+    const newCartArr = items;
+    const itemIndex = newCartArr.findIndex((data: CartItem) => data.id === item.id )
+    newCartArr.splice(itemIndex, 1);
+    console.log('newCartArr', newCartArr)
+    updateCart(newCartArr)
+    setItems(newCartArr)
+  }
 
   return (
-    <div key={item.id} className='flex justify-between p-4'>
-      <div className='md:flex hidden basis-1/6 items-center  justify-center'>
-        <div className='w-8 h-8 border-2'></div>
+    <div key={item.id} className='flex justify-between p-4 items-center'>
+      <div className='flex basis-1/6 items-center justify-around'>
+        <span className='text-3xl cursor-pointer hover:text-red-600' onClick={()=>handleDeleteItem()}>x</span>
+        <div className='md:block hidden w-8 h-8 border-2'></div>
       </div>
       <p className='basis-2/6'>{item.title}</p>
       <p className='basis-1/6'>${item.price}</p>
@@ -57,7 +72,6 @@ const StoreItem = ({item, totalArr, setTotalArr}:any) => {
           <p className='text-xl'>{itemCount}</p>
           <span id="add" className='text-3xl cursor-pointer'  onClick={(e)=>handleUpdateCount(e)}>&#43;</span>
         </div>
-        {/* x{item.quantity} */}
       </div>
       <p className='basis-1/6'>${itemPrice}</p>
     </div>

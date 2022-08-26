@@ -47,3 +47,7 @@ export interface CategoriesProps {
 export interface CategoryProps {
   category: string;
 }
+export interface SubTotalPrice {
+  id: number;
+  subTotal: number;
+}
