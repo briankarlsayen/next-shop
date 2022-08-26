@@ -1,33 +1,32 @@
 import {useState, useEffect} from 'react'
+import StoreItem from '../components/StoreItem';
 import { CartItem, CartItems } from '../types';
 
 const cart = () => {
-  // const items = [ 
-  //   {
-  //     label: "Piece of thingy",
-  //     price: 24.5,
-  //     quantity: 3,
-  //   },
-  //   {
-  //     label: "Piece of thingyasdasfas aisudgiau",
-  //     price: 14.5,
-  //     quantity: 23,
-  //   },
-  //   {
-  //     label: "Piece of thingy asdashoias daihd aiodhiaohdhasd ioad asidohas odias",
-  //     price: 21.5,
-  //     quantity: 31,
-  //   }
-  // ]
-
   const [items, setItems] = useState<CartItem[]>([])
+  const [itemsSubtotal, setItemsSubtotal] = useState(0)
+  const [totalArr, setTotalArr] = useState([{
+    id: 0,
+    subTotal: 0
+  }])
+  console.log('itemArr', totalArr)
+
   useEffect(() => {
     const cartItems = localStorage.getItem('cart');
     if(cartItems) {
       let parsedCart = JSON.parse(cartItems);
       setItems(parsedCart)
+      setItemsSubtotal(computeSubtotal(parsedCart))
     }
   }, [])
+
+  const computeSubtotal = (cartItems: CartItem[]) => {
+    let total = 0;
+    for(let value of cartItems) {
+      total = total + (value.price * value.quantity)
+    }
+    return total
+  }
 
   
 
@@ -36,6 +35,7 @@ const cart = () => {
       <p className='w-full'>Home / Cart</p>
       <div className='max-w-[80rem] m-auto'>
         <div className='justify-center selection:w-full flex flex-col items-center pb-20'>
+        <h1>{totalArr.map(item=> <p>{item.subTotal}</p>)}</h1>
         <h2 className='text-4xl pb-12 font-semibold'>Shopping Cart</h2>
         <div className='max-w-[80rem] w-full border-2'>
           <div className='flex justify-between border-b-2 p-4'>
@@ -48,15 +48,7 @@ const cart = () => {
           <div className='py-4'>
             {items.map(item => {
               return(
-                <ul key={item.id} className='flex justify-between p-4'>
-                  <li className='md:flex hidden basis-1/6 items-center  justify-center'>
-                    <div className='w-8 h-8 border-2'></div>
-                  </li>
-                  <li className='basis-2/6'>{item.title}</li>
-                  <li className='basis-1/6'>${item.price}</li>
-                  <li className='basis-1/6'>x{item.quantity}</li>
-                  <li className='basis-1/6'>${item.subTotal}</li>
-                </ul>
+                <StoreItem key={item.id} item={item} totalArr={totalArr} setTotalArr={setTotalArr} />
               )
             })}
           </div>
@@ -67,7 +59,7 @@ const cart = () => {
         <div className='max-w-[35rem] border-2'>
           <div className='flex justify-between p-4 border-b-2'>
             <h3 className='text-xl'>Subtotal</h3>
-            <p>$776.13</p>
+            <p>${itemsSubtotal}</p>
           </div>
           <div className='flex justify-between p-4 border-b-2'>
             <h3 className='text-xl'>Shipping</h3>
@@ -89,8 +81,8 @@ const cart = () => {
             </form>
           </div>
           <div className='flex justify-between p-4'>
-            <h3 className='text-xl'>Subtotal</h3>
-            <p>$776.13</p>
+            <h3 className='text-xl'>Total</h3>
+            <p>${itemsSubtotal}</p>
           </div>
         </div>
       </div>
