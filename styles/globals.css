@@ -30,7 +30,7 @@ a {
 }
 
 .text-subheader {
-  @apply uppercase text-base;
+  @apply text-base;
 }
 
 .footer-list {

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Related from '../../../components/Related'
 import { Product } from '../../../types'
-import { useRouter } from 'next/router'
 
 type ProductProps = {
   product: Product,

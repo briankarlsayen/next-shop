@@ -10,7 +10,7 @@ export const Categories = ({categories}: any) => {
           { categories.map((category: string, id: number) => {
             return(
               <Link key={id} href={"/category/[id]"} as={`/category/${category}`}>
-                <div className='flex-1 p-4 border-2 flex justify-between'>
+                <div className='flex-1 p-4 border-2 flex justify-between hover:border-black cursor-pointer'>
                   <h2 key={id}>{category}</h2>
                   <span className='pl-2'>&rarr;</span>
                 </div>

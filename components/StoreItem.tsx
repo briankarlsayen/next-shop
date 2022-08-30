@@ -13,14 +13,11 @@ const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, ca
         setItemCount(newCount)
         setItemPrice((newCount) * item.price)
 
-        console.log('item', item)
-
         const params = {
           ...item,
           subTotal: (newCount) * item.price,
           quantity: newCount,
         }
-        console.log('params', params)
         const newCartArr = items
         const itemIndex = newCartArr.findIndex((data: CartItem) => data.id === item.id )
         newCartArr[itemIndex] = params
@@ -59,9 +56,9 @@ const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, ca
   }
 
   return (
-    <div key={item.id} className='flex justify-between p-4 items-center'>
-      <div className='flex basis-1/6 items-center justify-around'>
-        <span className='text-3xl cursor-pointer hover:text-red-600' onClick={()=>handleDeleteItem()}>x</span>
+    <div key={item.id} className='flex justify-between items-center'>
+      <div className='flex basis-6 md:basis-1/6 items-center justify-around'>
+        <span className='text-xl cursor-pointer hover:text-red-600' onClick={()=>handleDeleteItem()}>x</span>
         <div className='md:block hidden w-8 h-8 border-2'></div>
       </div>
       <p className='basis-2/6'>{item.title}</p>
