@@ -50,7 +50,7 @@ const cart = () => {
 
   const ShoppingCartContainer = () => {
     return(
-      <div className='max-w-[80rem] m-auto'>
+      <div className='cart max-w-[80rem] m-auto'>
         <div className='justify-center selection:w-full flex flex-col items-center pb-20'>
           <div className='max-w-[80rem] w-full border-2'>
             <div className='flex justify-between border-b-2 py-4'>
@@ -60,7 +60,7 @@ const cart = () => {
               <h3 className="basis-1/6 text-subheader">Quantity</h3>
               <h3 className="basis-1/6 text-subheader">Subtotal</h3>
             </div>
-            <div className='py-4'>
+            <div className='flex flex-col gap-2 py-4'>
               {items.map(item => {
                 return(
                   <StoreItem key={item.id} item={item} items={items} setItems={setItems} totalArr={totalArr} setTotalArr={setTotalArr} updateCart={updateCart} cartFinalSubTotal={cartFinalSubTotal} />
@@ -73,11 +73,11 @@ const cart = () => {
           <h2 className='text-4xl pb-12 font-semibold'>Cart Totals</h2>
           <div className='max-w-[35rem] border-2'>
             <div className='flex justify-between p-4 border-b-2'>
-              <h3 className='text-xl'>Subtotal</h3>
+              <h3 className='text-subheader'>Subtotal</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
             </div>
             <div className='flex justify-between p-4 border-b-2'>
-              <h3 className='text-xl'>Shipping</h3>
+              <h3 className='text-subheader'>Shipping</h3>
               <form className='basis-1/3'>
                 <ul>
                   <li className='flex'>
@@ -105,7 +105,7 @@ const cart = () => {
               </form>
             </div>
             <div className='flex justify-between p-4'>
-              <h3 className='text-xl'>Total</h3>
+              <h3 className='text-subheader'>Total</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
             </div>
           </div>

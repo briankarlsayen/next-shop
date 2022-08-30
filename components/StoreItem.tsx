@@ -64,7 +64,7 @@ const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, ca
       <p className='basis-2/6'>{item.title}</p>
       <p className='basis-1/6'>${item.price}</p>
       <div className='basis-1/6'>
-        <div className='border-2 px-4 py-2 mr-2 flex items-center w-full max-w-[8rem] justify-between'>
+        <div className='item-quantity-btn'>
           <span id="minus" className='text-3xl cursor-pointer' onClick={(e)=>handleUpdateCount(e)}>&#45;</span>
           <p className='text-xl'>{itemCount}</p>
           <span id="add" className='text-3xl cursor-pointer'  onClick={(e)=>handleUpdateCount(e)}>&#43;</span>

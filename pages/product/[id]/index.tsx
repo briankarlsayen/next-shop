@@ -55,9 +55,9 @@ const product = ({product, products}:ProductProps) => {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between max-w-[80rem] m-auto gap-4 pt-20 md:flex-row flex-col items-center h-[calc(100vh-5rem)]">
-        <div className="h-[30rem] w-[30rem] items-center flex flex-col border-2" key={product.id} >
-          <img className='h-full w-full object-contain object-center p-4 flex-1' src={product.image} />
+      <div className="x-spacing flex justify-between max-w-[80rem] m-auto gap-4 py-20 md:flex-row flex-col items-center min-h-[calc(100vh-5rem)]">
+        <div className="h-[30rem] max-w-[30rem] w-full items-center flex flex-col border-2" key={product.id} >
+          <img className='h-full w-full object-contain object-center flex-1' src={product.image} />
         </div>
         <div className="flex flex-col w-full p-4 justify-between min-h-[25rem]">
           <div>

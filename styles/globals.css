@@ -30,9 +30,25 @@ a {
 }
 
 .text-subheader {
-  @apply text-base;
+  @apply  text-base sm:text-lg;
 }
 
 .footer-list {
   @apply pb-8
+}
+
+.item-quantity-btn {
+  @apply border-2 md:px-4 md:py-2 py-1 px-2  mr-2 flex items-center w-full max-w-[8rem] justify-between
+}
+
+.item-quantity-btn p {
+  @apply text-base;
+}
+
+.item-quantity-btn span {
+  @apply text-xl
+}
+
+.cart, .home {
+  @apply text-sm sm:text-base;
 }

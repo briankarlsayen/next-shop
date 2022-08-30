@@ -5,7 +5,7 @@ import ProductCard from './ProductCard';
 export const Featured = ({products}: Products) => {
   return (
     <section id="featured" className='py-20 x-spacing'>
-      <div className="py-8">
+      <div className="pb-8">
         <h3 className="uppercase text-base pb-2 ">FEATURED</h3>
         <h2 className="uppercase text-4xl">DISCOVER PRODUCTS</h2>
       </div>
