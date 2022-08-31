@@ -56,3 +56,17 @@ export interface FillBtnProps {
   text: string;
   url: string;
 }
+
+export interface ErrorInputProps {
+  fullName: boolean;
+  country: boolean;
+  street: boolean;
+  city: boolean;
+  zcode: boolean;
+  phone: boolean;
+  email: boolean;
+}
+
+export interface ErrorInputArrProps {
+  errorArr : ErrorInputProps[]
+}

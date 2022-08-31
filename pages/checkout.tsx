@@ -1,7 +1,6 @@
-import e from 'cors';
 import { useState, useEffect } from 'react'
 import FillBtn from '../components/FillBtn';
-import { CartItem } from '../types';
+import { CartItem, ErrorInputProps } from '../types';
 import Router from 'next/router'
 
 const checkout = () => {
@@ -60,15 +59,29 @@ const checkout = () => {
   // TODO detect if error in input then apply error className
   const handleSubmit = (e:any) => {
     e.preventDefault()
-    const filtered = Object.entries(billing).filter(([key, value]) => value === '');
-    if(filtered.length === 0) {
+    // const filteredArr:ErrorInputProps[] = []
+    const filteredArr: any[] = []
+    Object.entries(billing).map(([key, value]) => {if(value === '') filteredArr.push(key) });
+    
+    const errorItemsArr: any[] = []
+    const goodItemsArr: any[] = []
+    Object.entries(errorInput).map(([key, value]) =>{ 
+      if(filteredArr.includes(key)) {
+        errorItemsArr.push([key, true])
+      } else {
+        goodItemsArr.push([key, false])
+      }
+    });
+    const errorData: any = Object.fromEntries(errorItemsArr)
+    const goodData: any = Object.fromEntries(goodItemsArr)
+    const newData = Object.assign(errorData, goodData);
+    setErrorInput(newData)
+
+    if(filteredArr.length === 0) {
       Router.push('/')
     }
-    // setErrorInput()
     console.log('Order succesfully submitted')
-    console.log('filter', filtered)
   }
-
 
   const errorClass = "!border-red-500"
 
@@ -86,41 +99,59 @@ const checkout = () => {
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="form-input-container">
                   <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="fullName">Full Name</label>
-                  <input className={`form-input ${errorInput ? errorClass : ''}`} name="fullName" type="text"
+                  <input className={`form-input ${errorInput.fullName ? errorClass : ''}`} name="fullName" type="text"
                     id="fullName" value={billing.fullName} onChange={updateField} required autoComplete="off" />
-                  <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                  <span className={`form-error-msg ${errorInput.fullName ? 'block' : '!hidden'}`}>
                     Full name is required
                   </span>
                 </div>
                 <div className="form-input-container">
                   <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="country">Country</label>
-                  <input className="form-input " name="country" type="text"
+                  <input className={`form-input ${errorInput.country ? errorClass : ''}`} name="country" type="text"
                     id="country" value={billing.country} onChange={updateField} required autoComplete="off" />
+                  <span className={`form-error-msg ${errorInput.country ? 'block' : '!hidden'}`}>
+                    Country is required
+                  </span>
                 </div>
                 <div className="form-input-container">
-                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="country">Street</label>
-                  <input className="form-input" name="street" type="text"
+                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="street">Street</label>
+                  <input className={`form-input ${errorInput.street ? errorClass : ''}`} name="street" type="text"
                     id="street" value={billing.street} onChange={updateField} required autoComplete="off" />
+                  <span className={`form-error-msg ${errorInput.street ? 'block' : '!hidden'}`}>
+                    Street is required
+                  </span>
                 </div>
                 <div className="form-input-container">
-                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="country">City</label>
-                  <input className="form-input" name="city" type="text"
+                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="city">City</label>
+                  <input className={`form-input ${errorInput.city ? errorClass : ''}`} name="city" type="text"
                     id="city" value={billing.city} onChange={updateField} required autoComplete="off" />
+                  <span className={`form-error-msg ${errorInput.city ? 'block' : '!hidden'}`}>
+                    City is required
+                  </span>
                 </div>
                 <div className="form-input-container">
-                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="country">Zip Code</label>
-                  <input className="form-input" name="zcode" type="text"
+                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="zcode">Zip Code</label>
+                  <input className={`form-input ${errorInput.zcode ? errorClass : ''}`} name="zcode" type="text"
                     id="zcode" value={billing.zcode} onChange={updateField} required autoComplete="off" />
+                  <span className={`form-error-msg ${errorInput.zcode ? 'block' : '!hidden'}`}>
+                    Zip Code is required
+                  </span>
                 </div>
                 <div className="form-input-container">
-                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="country">Phone</label>
-                  <input className="form-input" name="phone" type="text"
+                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="phone">Phone</label>
+                  <input className={`form-input ${errorInput.phone ? errorClass : ''}`} name="phone" type="text"
                     id="phone" value={billing.phone} onChange={updateField} required autoComplete="off" />
+                  <span className={`form-error-msg ${errorInput.phone ? 'block' : '!hidden'}`}>
+                    Phone is required
+                  </span>
                 </div>
                 <div className="form-input-container">
-                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="country">Email Address</label>
-                  <input className="form-input" name="email" type="email"
+                  <label className="block tracking-wide text-gray-700 text-subheader-uc mb-1" htmlFor="email">Email Address</label>
+                  <input className={`form-input ${errorInput.email ? errorClass : ''}`} name="email" type="email"
                     id="email" value={billing.email} onChange={updateField} required autoComplete="off" />
+                  <span className={`form-error-msg ${errorInput.email ? 'block' : '!hidden'}`}>
+                    Email Address is required
+                  </span>
                 </div>
 
               </div>
