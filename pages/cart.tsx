@@ -2,6 +2,7 @@ import {useState, useEffect, useCallback} from 'react'
 import StoreItem from '../components/StoreItem';
 import { CartItem, CartItems, SubTotalPrice } from '../types';
 import Link from "next/link"
+import FillBtn from '../components/FillBtn';
 
 const cart = () => {
   const [items, setItems] = useState<CartItem[]>([])
@@ -110,7 +111,7 @@ const cart = () => {
             </div>
           </div>
         </div>
-        <button className='bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 text-xl uppercase mt-6'>Proceed to checkout</button>
+        <FillBtn text="Proceed to checkout" url="/checkout" />
       </div>
     )
   }
@@ -133,11 +134,7 @@ const EmptyCart = () => {
   return(
     <div className='text-center'>
       <h3 className='text-2xl'>Your cart is currently empty</h3>
-      <button className='bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 text-xl uppercase mt-6'>
-        <Link href="/">
-          Return to shop
-        </Link>
-      </button>
+      <FillBtn text="Return to shop" url="/" />
     </div>
   )
 }

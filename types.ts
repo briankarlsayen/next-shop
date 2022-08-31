@@ -51,3 +51,8 @@ export interface SubTotalPrice {
   id: number;
   subTotal: number;
 }
+
+export interface FillBtnProps {
+  text: string;
+  url: string;
+}
