@@ -38,7 +38,7 @@ a {
 }
 
 .text-subheader-uc {
-  @apply  text-xs uppercase;
+  @apply  text-base uppercase;
 }
 
 .footer-list {

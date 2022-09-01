@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import FillBtn from '../components/FillBtn';
-import { CartItem, ErrorInputProps } from '../types';
+import FillBtn from '../../components/FillBtn';
+import { CartItem, ErrorInputProps } from '../../types';
 import Router from 'next/router'
 
 const checkout = () => {
