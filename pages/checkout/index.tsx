@@ -59,7 +59,6 @@ const checkout = () => {
   // TODO detect if error in input then apply error className
   const handleSubmit = (e:any) => {
     e.preventDefault()
-    // const filteredArr:ErrorInputProps[] = []
     const filteredArr: any[] = []
     Object.entries(billing).map(([key, value]) => {if(value === '') filteredArr.push(key) });
     
@@ -78,7 +77,7 @@ const checkout = () => {
     setErrorInput(newData)
 
     if(filteredArr.length === 0) {
-      Router.push('/')
+      Router.push('/checkout/order')
     }
     console.log('Order succesfully submitted')
   }

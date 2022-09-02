@@ -17,8 +17,8 @@ const order = () => {
         <div className='flex flex-col gap-2'>
           
           <div className='flex justify-between'>
-            <h4 className='text-subheader-uc'>Product</h4>
-            <h4 className='text-subheader-uc'>Total</h4>
+            <h4 className='text-subheader-uc basis-1/2'>Product</h4>
+            <h4 className='text-subheader-uc basis-1/2'>Total</h4>
           </div>
           <div>
             <div className='flex justify-between'>
