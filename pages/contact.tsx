@@ -1,84 +1,34 @@
-// import { useMemo } from 'react'
-// import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
 
-// const contact = () => {
-//   const { isLoaded } = useJsApiLoader({
-//     id: 'google-map-script',
-//     googleMapsApiKey: "AIzaSyDpXrziVeh8EvJY7NyjVVRK3AYpvDthVb",
-//   })
-//   if(isLoaded) return <div>Loading...</div>
-//   return <Map />
-// }
-
-// const Map = () => {
-//   const center = useMemo(() => ({ lat: 44, lng: -80}), [])
-//   return (
-//     <GoogleMap zoom={10} center={center} mapContainerClassName='w-full h-screen'>
-//       <Marker position={center} />
-//     </GoogleMap>
-//   )
-// }
-
-// export default contact
-
-import React, {useMemo} from 'react'
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import React from 'react'
 import Map from '../components/Map'
 
 
 
 function contact() {
-  // const center = {
-  //   lat: 14.355867,
-  //   lng: 120.980956
-  // };
-  // const { isLoaded } = useJsApiLoader({
-  //   id: 'google-map-script',
-  //   googleMapsApiKey: "AIzaSyDrWTz7OGHRKCrBycwEHVB77LzgMX08jDA"
-  // })
-
-  // const [map, setMap] = React.useState(null)
-
-  // const onLoad = React.useCallback(function callback(map) {
-  //   const bounds = new window.google.maps.LatLngBounds(center);
-  //   map.fitBounds(bounds);
-  //   setMap(map)
-  // }, [])
-
-  // const onUnmount = React.useCallback(function callback(map) {
-  //   setMap(null)
-  // }, [])
-
-  // const anotherFunction = () => {
-  //   return isLoaded ? (
-  //     <Map onLoad={onLoad} onUnmount={onUnmount} />
-  //   ) : <></>
-  // }
-
   return <>
-    <p>Home / Contact Us</p>
-    <h2 className='title text-center'>Contact</h2>
+    <h2 className='title text-center py-12 x-spacing'>Contact Us</h2>
     <Map />
+    <div className='max-w-1/4 pt-12 text-center x-spacing'>
+      <p className='text-xl'>We are always keen to hear from people that would like to add a new perspectives to our team.</p>
+      <div className='py-6'>
+        <h4 className='text-header py-2'>Get in touch</h4>
+        <p>Got any questions? We look forward to answering all your requests.</p>
+        <p>Monday - Friday: 0800 - 1700</p>
+        <p>Saturday: 0900 - 1630</p>
+      </div>
+      <div>
+        <p>Email:</p>
+        <p>Orders: <span>salesorder@gmail.com</span></p>
+        <p>General Inquiries: <span>customerinq@gmail.com</span></p>
+        <p>Service / Claims: <span>serviceclaim@gmail.com</span></p>
+      </div>
+      <div>
+        <p>Phone:</p>
+        <p>+631234567890</p>
+      </div>
+    </div>
+    <div className='border-b-2 py-20'></div>
   </>
-  // return isLoaded ? (
-  //     <Map onLoad={onLoad} onUnmount={onUnmount} />
-  // ) : <></>
 }
-
-// const Map = ({onLoad, onUnmount}) => {
-//   const center = {
-//     lat: 14.355867,
-//     lng: 120.980956
-//   };
-//   return(
-//     <GoogleMap
-//         mapContainerClassName='w-full h-screen'
-//         center={center}
-//         zoom={10}
-//       >
-//         <Marker position={center} />
-//       </GoogleMap>
-//   )
-// }
 
 export default React.memo(contact)

@@ -16,8 +16,16 @@ function Navbar() {
               Cart
             </Link>
           </li>
-          <li className='px-2'>Promo</li>
-          <li className='px-2'>About</li>
+          <li className='px-2'>
+            <Link href="/shop">
+              Shop
+            </Link>
+          </li>
+          <li className='px-2'>
+            <Link href="/contact">
+              Contact
+            </Link>  
+          </li>
         </ul>
       </div>
     </div>

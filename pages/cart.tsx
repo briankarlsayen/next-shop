@@ -119,7 +119,6 @@ const cart = () => {
   return (
     <div>
       <div className='x-spacing'>
-        <p className='w-full'>Home / Cart</p>
         <div className='text-center'>
           <h2 className='text-4xl py-12 font-semibold'>Shopping Cart</h2>
         </div>

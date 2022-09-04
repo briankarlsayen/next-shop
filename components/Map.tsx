@@ -37,7 +37,7 @@ function Map() {
 const GMap = ({onLoad, onUnmount}:any) => {
   return(
     <GoogleMap
-        mapContainerClassName='w-full h-[25vh]'
+        mapContainerClassName='w-full h-[45vh]'
         center={center}
         zoom={10}
         onLoad={onLoad}

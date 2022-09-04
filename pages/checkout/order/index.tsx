@@ -3,7 +3,6 @@ import React from 'react'
 const order = () => {
   return (
     <div className='w-full'>
-      <p className='w-full x-spacing'>Home / Checkout / Order</p>
       <div className='max-w-[80rem] mx-auto x-spacing min-h-screen'>
         <h2 className='title text-center py-12'>Order Confirmation</h2>
         <h3 className='text-header pb-4'>Thank you. Your order has been received.</h3>

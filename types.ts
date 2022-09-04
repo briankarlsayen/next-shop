@@ -70,3 +70,9 @@ export interface ErrorInputProps {
 export interface ErrorInputArrProps {
   errorArr : ErrorInputProps[]
 }
+
+export interface BreadCrumbProps {
+  href: string;
+  label: string;
+  isCurrent: boolean;
+}

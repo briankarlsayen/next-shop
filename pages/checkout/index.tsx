@@ -87,7 +87,6 @@ const checkout = () => {
   return (
     <div>
       <div className='x-spacing'>
-        <p className='w-full'>Home / Checkout</p>
         <form className='max-w-[80rem] mx-auto' onSubmit={handleSubmit}>
           <div className='text-center'>
             <h2 className='title py-12'>Checkout</h2>
