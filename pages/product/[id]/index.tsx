@@ -12,7 +12,6 @@ const product = ({product, products}:ProductProps) => {
   const [itemPrice, setItemPrice] = useState(product.price)
   const [itemDuplicate, setItemDuplicate] = useState(false)
   const handleUpdateCount = (e:any) => {
-    console.log('e', e.target.id)
     if(e.target.id === "minus") {
       if(itemCount > 1) {
         setItemCount(itemCount - 1)

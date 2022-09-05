@@ -5,7 +5,6 @@ const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, ca
   const [itemCount, setItemCount] = useState(item.quantity)
   const [itemPrice, setItemPrice] = useState(item.price * item.quantity)
   const handleUpdateCount = (e:any) => {
-    console.log('e', e.target.id)
     if(e.target.id === "minus") {
       if(itemCount > 1) {
         let newCount = itemCount - 1
@@ -50,7 +49,6 @@ const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, ca
     const newCartArr = items;
     const itemIndex = newCartArr.findIndex((data: CartItem) => data.id === item.id )
     newCartArr.splice(itemIndex, 1);
-    console.log('newCartArr', newCartArr)
     updateCart(newCartArr)
     setItems(newCartArr)
   }
