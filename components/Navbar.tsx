@@ -1,12 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from "next/router";
 
 function Navbar() {
+  const router = useRouter();
   return (
-    <div className='h-[5rem] w-full bg-gray-200 flex flex-row items-center justify-between x-spacing'>
-      <span className='font-bold'>
+    <div className={`h-[5rem] w-full bg-transparent flex flex-row items-center justify-between x-spacing ${router.pathname === '/' ? 'absolute': ''}`}>
+      <span className='font-bold text-2xl'>
         <Link href="/">
-          NOOB STORE
+          Nooby
         </Link>
       </span>
       <div>

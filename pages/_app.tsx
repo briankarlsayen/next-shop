@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Navbar />
-      <Breadcrumb>
+      {/* <Breadcrumb>
         <BreadcrumbItem isCurrent={router.pathname === "/"} href="/">
           Home
         </BreadcrumbItem>
@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               {breadcrumb.label}
             </BreadcrumbItem>
           ))}
-      </Breadcrumb>
+      </Breadcrumb> */}
       <Component {...pageProps} />
       <Footer />
     </>
