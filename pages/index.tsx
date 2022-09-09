@@ -15,7 +15,7 @@ const Home: NextPage<{products: Product[], categories: any}> = ({ products, cate
       </Head>
       <Hero />
       <Featured products={products} />
-      <section id="info" className='py-20 border-y-2 x-spacing'>
+      {/* <section id="info" className='py-20 border-b-2 x-spacing'>
         <div className='flex md:flex-row flex-col gap-y-24'>
           <div className='basis-1/2'>
             <div className='max-w-xl'>
@@ -29,6 +29,15 @@ const Home: NextPage<{products: Product[], categories: any}> = ({ products, cate
               Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
             <button className='border-2 px-4 pb-2 mt-4 uppercase hover:bg-gray-100'>View More <span className='pl-4 text-2xl'>&rarr;</span></button>
           </div>
+        </div>
+      </section> */}
+      <section id='filler' className='w-full h-full relative'>
+        <div className='absolute top-1/2 right-1/2'>
+          <h1 className='text-white text-base italic'>Clothes made for humans, by humans.</h1>
+          <h1 className='text-white text-sm italic text-right'>- Alien</h1>
+        </div>
+        <div className='w-full h-[30rem]'>
+          <img className='object-cover object-center w-full h-full' src="https://images.unsplash.com/photo-1542060748-10c28b62716f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />
         </div>
       </section>
       <Categories categories={categories} />

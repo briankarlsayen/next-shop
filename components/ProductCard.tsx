@@ -21,13 +21,13 @@ const ProductCard = (props:any) => {
   }
 
   return (
-    <li className="xl:w-[calc(33.33%-1rem)] md:w-[calc(50%-1rem)] w-full items-center flex flex-col border-2" key={props.id} >
+    <li className="xl:w-[calc(33.33%-1rem)] md:w-[calc(50%-1rem)] w-full items-center flex flex-col" key={props.id} >
       <Link href={"/product/[id]"} as={`/product/${props.id}`}>
-        <div className="h-[40vh] w-full hover:border-black border">
-          <img className='h-full object-center p-4 flex-1 cursor-pointer mx-auto' src={props.image} />
+        <div className="h-[40vh] bg-white w-full hover:border-black rounded-xl cursor-pointer hover:brightness-90 duration-75 ease-in-out">
+          <img className='h-full object-center p-4 flex-1  mx-auto' src={props.image} />
         </div>
       </Link>
-      <div className="w-full border-t-2 p-4">
+      <div className="w-full p-4">
         <div className="w-full flex justify-between">
           <p>{props.title}</p>
           <p className="font-semibold">${props.price}</p>
