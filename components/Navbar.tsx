@@ -19,8 +19,8 @@ function Navbar() {
               Cart
             </Link>
           </li>
-          <li className={linkLiClass}>
-            <Link href="/shop">
+          <li className='px-2'>
+            <Link href="/shop/all">
               Shop
             </Link>
           </li>

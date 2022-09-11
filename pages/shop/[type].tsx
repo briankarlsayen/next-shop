@@ -8,11 +8,9 @@ import Link from "next/link"
 const category: NextPage<{products: Product[], categories: any}> = ({products, categories}) => {
   const router = useRouter();
   const {type} = router.query;
-  console.log('type', type)
   return (
     <div>
-      <div className='x-spacing max-w-[80rem] mx-auto pb-20'>
-        <h2 className='title text-center py-12'>Shop</h2>
+      <div className='x-spacing max-w-[80rem] mx-auto py-20'>
         <ShopCategory categories={categories} type={type} />
         <div className='w-full flex flex-row gap-4'>
           <ul className="flex w-full flex-wrap gap-4">
@@ -30,12 +28,11 @@ const category: NextPage<{products: Product[], categories: any}> = ({products, c
 }
 
 const ShopCategory = ({categories, type}:any) => {
-  console.log('categories', categories)
   return(
     <div className='flex items-center gap-2 pb-4'>
       { categories.map((category: any, id: number)=> {
         return(
-          <Link key={id} href={"/category/[type]"} as={`/category/${category}`}>
+          <Link key={id} href={"/shop/[type]"} as={`/shop/${category}`}>
             <h4 className={`px-4 py-2 border rounded-sm cursor-pointer ${category === type ? 'bg-orange-400 text-white': null}`}>{category}</h4>
           </Link>
         )

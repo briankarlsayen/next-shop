@@ -30,7 +30,7 @@ export const Categories = ({categories}: any) => {
         <div className='flex lg:flex-row flex-col w-full justify-between gap-4 py-6'>
           { categories.map((category: string, id: number) => {
             return(
-              <Link key={id} href={"/category/[id]"} as={`/category/${category}`}>
+              <Link key={id} href={"/shop/[id]"} as={`/shop/${category}`}>
                 <div className='flex-1 justify-between cursor-pointer relative gap-2'>
                   
                   <h2 className='absolute z-10 uppercase text-xl px-2 py-2 text-white'>{category}</h2>
