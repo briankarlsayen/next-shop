@@ -30,13 +30,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     });
     setBreadcrumbs(breadcrumbsarr);
   }, [router.asPath]);
+  console.log('router',router.pathname )
   return (
     <>
       <Navbar />
       <Breadcrumb>
-        <BreadcrumbItem isCurrent={router.pathname === "/"} href="/">
+        {
+          router.pathname !== "/" && <BreadcrumbItem isCurrent={router.pathname === "/"} href="/">
           Home
         </BreadcrumbItem>
+        }
+        
         {breadcrumbs &&
           breadcrumbs.map((breadcrumb) => (
             <BreadcrumbItem
