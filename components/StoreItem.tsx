@@ -4,6 +4,7 @@ import { CartItem } from '../types';
 const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, cartFinalSubTotal}:any) => {
   const [itemCount, setItemCount] = useState(item.quantity)
   const [itemPrice, setItemPrice] = useState(item.price * item.quantity)
+  console.log('item', item)
   const handleUpdateCount = (e:any) => {
     if(e.target.id === "minus") {
       if(itemCount > 1) {
@@ -54,10 +55,13 @@ const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, ca
   }
 
   return (
-    <div key={item.id} className='flex justify-between items-center'>
+    <div key={item.id} className='flex justify-between items-center gap-4'>
       <div className='flex basis-6 md:basis-1/6 items-center justify-around'>
         <span className='text-xl cursor-pointer hover:text-red-600' onClick={()=>handleDeleteItem()}>x</span>
-        <div className='md:block hidden w-8 h-8 border-2'></div>
+        <div className='md:block hidden w-14 h-14'>
+          <img className='h-full w-full object-contain' src={item.image} />
+        </div>
+        {/* <div className='md:block hidden w-8 h-8 border-2'></div> */}
       </div>
       <p className='basis-2/6'>{item.title}</p>
       <p className='basis-1/6'>${item.price}</p>

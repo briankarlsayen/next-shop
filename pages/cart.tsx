@@ -56,10 +56,10 @@ const cart = () => {
           <div className='max-w-[80rem] w-full border-2'>
             <div className='flex justify-between border-b-2 py-4'>
               <div className='basis-6 md:basis-1/6'></div>
-              <h3 className="basis-2/6 text-subheader">Product</h3>
-              <h3 className="basis-1/6 text-subheader">Price</h3>
-              <h3 className="basis-1/6 text-subheader">Quantity</h3>
-              <h3 className="basis-1/6 text-subheader">Subtotal</h3>
+              <h3 className="basis-2/6 text-subheader-uc">Product</h3>
+              <h3 className="basis-1/6 text-subheader-uc">Price</h3>
+              <h3 className="basis-1/6 text-subheader-uc">Quantity</h3>
+              <h3 className="basis-1/6 text-subheader-uc">Subtotal</h3>
             </div>
             <div className='flex flex-col gap-2 py-4'>
               {items.map(item => {
@@ -71,7 +71,7 @@ const cart = () => {
           </div>
         </div>
         <div>
-          <h2 className='text-4xl pb-12 font-semibold'>Cart Totals</h2>
+          <h2 className='text-4xl pb-12 text-title'>Cart Totals</h2>
           <div className='max-w-[35rem] border-2'>
             <div className='flex justify-between p-4 border-b-2'>
               <h3 className='text-subheader'>Subtotal</h3>
