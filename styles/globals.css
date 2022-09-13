@@ -72,7 +72,7 @@ a {
 }
 
 .text-subheader-uc {
-  @apply  text-base uppercase;
+  @apply  md:text-base text-sm uppercase;
 }
 
 .footer-list {
@@ -80,7 +80,7 @@ a {
 }
 
 .item-quantity-btn {
-  @apply border-2 md:px-4 md:py-2 py-1 px-2  mr-2 flex items-center w-full max-w-[8rem] justify-between
+  @apply border-2 md:px-4 md:py-1 px-2  mr-2 flex items-center w-full max-w-[8rem] justify-between
 }
 
 .item-quantity-btn p {

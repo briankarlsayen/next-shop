@@ -91,7 +91,7 @@ const checkout = () => {
           <div className='text-center'>
             <h2 className='title py-12'>Checkout</h2>
           </div>
-          <div className='mx-auto flex sm:flex-row flex-col w-full gap-4'>
+          <div className='mx-auto flex sm:flex-row flex-col w-full gap-12'>
             <div className='w-full'>
               <h2 className='text-header pb-4'>Billing Details</h2>
               <div className="flex flex-wrap -mx-3 mb-6">

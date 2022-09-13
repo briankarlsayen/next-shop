@@ -54,7 +54,7 @@ const cart = () => {
       <div className='cart max-w-[80rem] m-auto'>
         <div className='justify-center selection:w-full flex flex-col items-center pb-20'>
           <div className='max-w-[80rem] w-full border-2'>
-            <div className='flex justify-between border-b-2 py-4'>
+            <div className='flex justify-between border-b-2 py-4 bg-[#F1F1F1]'>
               <div className='basis-6 md:basis-1/6'></div>
               <h3 className="basis-2/6 text-subheader-uc">Product</h3>
               <h3 className="basis-1/6 text-subheader-uc">Price</h3>
@@ -71,14 +71,14 @@ const cart = () => {
           </div>
         </div>
         <div>
-          <h2 className='text-4xl pb-12 text-title'>Cart Totals</h2>
+          <h2 className='text-2xl pb-6'>Cart Totals</h2>
           <div className='max-w-[35rem] border-2'>
-            <div className='flex justify-between p-4 border-b-2'>
-              <h3 className='text-subheader'>Subtotal</h3>
+            <div className='flex justify-between p-4 border-b-2 bg-[#F1F1F1]'>
+              <h3 className='text-subheader-uc'>Subtotal</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
             </div>
             <div className='flex justify-between p-4 border-b-2'>
-              <h3 className='text-subheader'>Shipping</h3>
+              <h3 className='text-subheader-uc'>Shipping</h3>
               <form className='basis-1/3'>
                 <ul>
                   <li className='flex'>
@@ -105,8 +105,8 @@ const cart = () => {
                 </ul>
               </form>
             </div>
-            <div className='flex justify-between p-4'>
-              <h3 className='text-subheader'>Total</h3>
+            <div className='flex justify-between p-4 bg-[#F1F1F1]'>
+              <h3 className='text-subheader-uc'>Total</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
             </div>
           </div>
@@ -118,10 +118,10 @@ const cart = () => {
 
   return (
     <div>
-      <div className='x-spacing'>
-        <div className='text-center'>
+      <div className='x-spacing py-20'>
+        {/* <div className='text-center'>
           <h2 className='text-4xl py-12 font-semibold'>Shopping Cart</h2>
-        </div>
+        </div> */}
         {items.length ? <ShoppingCartContainer /> : <EmptyCart />}
       </div>
       <div className="border-b-2 pt-32"></div>

@@ -3,7 +3,8 @@ import { FillBtnProps } from "../types"
 
 const FillBtn = ({text, url}:FillBtnProps) => {
   return (
-    <button className='bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 text-xl uppercase mt-6'>
+    <button className='hero-btn mt-6'>
+    {/* <button className='bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 text-xl uppercase mt-6'> */}
       <Link href={`${url}`} >
         {text}
       </Link>
