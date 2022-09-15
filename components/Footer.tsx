@@ -8,10 +8,9 @@ export const Footer = () => {
     console.log('email', email)
     setSubscribed(true)
   }
-  console.log('isSubscribed', isSubscribed)
   return (
     <section className="w-full flex flex-col justify-between">
-      <div className="flex w-full justify-center m-auto py-32 flex-1 x-spacing bg-[#F1F1F1]"> 
+      <div className="flex w-full justify-center m-auto py-32 flex-1 x-spacing bg-[#DDC6A4]"> 
         {
           !isSubscribed ? 
           <div className="max-w-[40rem] text-center">

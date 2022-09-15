@@ -6,7 +6,8 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Rubik', sans-serif;
-  background-color: white;
+  background-color: #F1F1F1;
+  /* background-color: white; */
 }
 
 .hero-title-font {
@@ -34,6 +35,14 @@ a {
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.text-green {
+  @apply text-[#2C5F3E];
+}
+
+.bg-custom-yellow {
+  @apply bg-[#CBA95D];
+}
 
 .hero-title {
   @apply md:text-7xl text-5xl font-bold;

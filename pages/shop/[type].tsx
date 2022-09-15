@@ -33,7 +33,7 @@ const ShopCategory = ({categories, type}:any) => {
       { categories.map((category: any, id: number)=> {
         return(
           <Link key={id} href={"/shop/[type]"} as={`/shop/${category}`}>
-            <h4 className={`px-4 py-2 border rounded-sm cursor-pointer ${category === type ? 'bg-orange-400 text-white': null}`}>{category}</h4>
+            <h4 className={`px-4 py-2 border rounded-sm cursor-pointer ${category === type ? 'bg-custom-yellow text-white': 'bg-white text-black hover:bg-[#e5e5e5]'}`}>{category}</h4>
           </Link>
         )
       })}
@@ -42,36 +42,46 @@ const ShopCategory = ({categories, type}:any) => {
 }
 
 export const getStaticProps = async(context:any) => {
-  let res;
-  if(context.params.type === "all") {
-    res = await fetch(`https://fakestoreapi.com/products/`)
-  } else {
-    res = await fetch(`https://fakestoreapi.com/products/category/${context.params.type}`);
-  }
-  const products = await res.json()
-
-  const getCategories = await fetch("https://fakestoreapi.com/products/categories")
-  const categories = await getCategories.json()
-  categories.unshift('all')
-
-  return {
-    props: {
-      products,
-      categories,
+  try {
+    let res;
+    if(context.params.type === "all") {
+      res = await fetch(`https://fakestoreapi.com/products/`)
+    } else {
+      res = await fetch(`https://fakestoreapi.com/products/category/${context.params.type}`);
     }
+    const products = await res.json()
+  
+    const getCategories = await fetch("https://fakestoreapi.com/products/categories")
+    const categories = await getCategories.json()
+    categories.unshift('all')
+  
+    return {
+      props: {
+        products,
+        categories,
+      }
+    }
+  } catch(error) {
+    console.log('error', error)
+    return { notFound: true };
   }
 } 
 
 export const getStaticPaths = async() => {
-  const res = await fetch(`https://fakestoreapi.com/products/`)
-  const products = await res.json()
-
-  const categories = products.map((product: Product) => product.category)
-  categories.push("all")
-  const paths = categories.map((category: string) => ({ params: { type: category.toString() }})) 
-  return {
-    paths,
-    fallback: false,
+  try {
+    const res = await fetch(`https://fakestoreapi.com/products/`)
+    const products = await res.json()
+  
+    const categories = products.map((product: Product) => product.category)
+    categories.push("all")
+    const paths = categories.map((category: string) => ({ params: { type: category.toString() }})) 
+    return {
+      paths,
+      fallback: false,
+    }
+  } catch(error) {
+    console.log('error', error)
+    return { fallback: 'blocking', paths: [] };
   }
 }
 

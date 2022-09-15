@@ -58,17 +58,21 @@ const Home: NextPage<{products: Product[], categories: any}> = ({ products, cate
 }
 
 export const getStaticProps: GetStaticProps = async(context) => {
-  const res = await fetch("https://fakestoreapi.com/products/");
-  const products = await res.json()
-
-
-  const getCategories = await fetch("https://fakestoreapi.com/products/categories")
-  const categories = await getCategories.json()
-  return {
-    props: {
-      products,
-      categories,
+  try {
+    const res = await fetch("https://fakestoreapi.com/products/");
+    const products = await res.json()
+  
+    const getCategories = await fetch("https://fakestoreapi.com/products/categories")
+    const categories = await getCategories.json()
+    return {
+      props: {
+        products,
+        categories,
+      }
     }
+  } catch(error) {
+    console.log('error', error)
+    return { notFound: true };
   }
 }
 

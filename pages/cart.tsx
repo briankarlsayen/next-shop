@@ -52,16 +52,16 @@ const cart = () => {
   const ShoppingCartContainer = () => {
     return(
       <div className='cart max-w-[80rem] m-auto'>
-        <div className='justify-center selection:w-full flex flex-col items-center pb-20'>
-          <div className='max-w-[80rem] w-full border-2'>
-            <div className='flex justify-between border-b-2 py-4 bg-[#F1F1F1]'>
+        <div className='justify-center selection:w-full flex flex-col items-center pb-20 '>
+          <div className='max-w-[80rem] w-full'>
+            <div className='flex justify-between border-b-2 py-4 bg-white'>
               <div className='basis-6 md:basis-1/6'></div>
               <h3 className="basis-2/6 text-subheader-uc">Product</h3>
               <h3 className="basis-1/6 text-subheader-uc">Price</h3>
               <h3 className="basis-1/6 text-subheader-uc">Quantity</h3>
               <h3 className="basis-1/6 text-subheader-uc">Subtotal</h3>
             </div>
-            <div className='flex flex-col gap-2 py-4'>
+            <div className='flex flex-col gap-2 py-4 bg-white'>
               {items.map(item => {
                 return(
                   <StoreItem key={item.id} item={item} items={items} setItems={setItems} totalArr={totalArr} setTotalArr={setTotalArr} updateCart={updateCart} cartFinalSubTotal={cartFinalSubTotal} />
@@ -72,9 +72,9 @@ const cart = () => {
         </div>
         <div>
           <h2 className='text-2xl pb-6'>Cart Totals</h2>
-          <div className='max-w-[35rem] border-2'>
-            <div className='flex justify-between p-4 border-b-2 bg-[#F1F1F1]'>
-              <h3 className='text-subheader-uc'>Subtotal</h3>
+          <div className='max-w-[35rem] bg-white'>
+            <div className='flex justify-between p-4 border-b-2 '>
+              <h3 className='text-subheader-uc '>Subtotal</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
             </div>
             <div className='flex justify-between p-4 border-b-2'>
@@ -105,7 +105,7 @@ const cart = () => {
                 </ul>
               </form>
             </div>
-            <div className='flex justify-between p-4 bg-[#F1F1F1]'>
+            <div className='flex justify-between p-4'>
               <h3 className='text-subheader-uc'>Total</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
             </div>

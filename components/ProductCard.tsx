@@ -1,5 +1,4 @@
 import Link from "next/link"
-
 const ProductCard = (props:any) => {
   const handleAddCart = () => {
     const cartItems = localStorage.getItem('cart')
@@ -21,9 +20,9 @@ const ProductCard = (props:any) => {
   }
 
   return (
-    <li className="xl:w-[calc(33.33%-1rem)] md:w-[calc(50%-1rem)] w-full items-center flex flex-col" key={props.id} >
+    <li className="xl:w-[calc(33.33%-1rem)] md:w-[calc(50%-1rem)] w-full items-center flex flex-col bg-white rounded-sm" key={props.id} >
       <Link href={"/product/[id]"} as={`/product/${props.id}`}>
-        <div className="h-[40vh] bg-white w-full hover:border-black rounded-xl cursor-pointer hover:brightness-90 duration-75 ease-in-out">
+        <div className="h-[40vh] bg-white w-full hover:border-black rounded-sm cursor-pointer hover:brightness-90 duration-75 ease-in-out">
           <img className='h-full object-center p-4 flex-1  mx-auto' src={props.image} />
         </div>
       </Link>
@@ -32,7 +31,10 @@ const ProductCard = (props:any) => {
           <p>{props.title}</p>
           <p className="font-semibold">${props.price}</p>
         </div>
-        <p className="font-semibold uppercase cursor-pointer" onClick={handleAddCart}>Add to Cart</p>
+        <div className="flex">
+          <p className="font-semibold uppercase cursor-pointer" onClick={handleAddCart}>Add to Cart</p>
+          <img className="ml-2 object-contain h-6 w-6" src="/cart.svg" alt="cart" />
+        </div>
       </div>
     </li>
   )
