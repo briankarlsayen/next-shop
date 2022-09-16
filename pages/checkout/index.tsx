@@ -31,6 +31,7 @@ const checkout = () => {
     }
   )
 
+  // * get items data
   useEffect(() => {
     const cartItems = localStorage.getItem('cart');
     if(cartItems) {
@@ -86,11 +87,11 @@ const checkout = () => {
 
   return (
     <div>
-      <div className='x-spacing'>
+      <div className='x-spacing py-20'>
         <form className='max-w-[80rem] mx-auto' onSubmit={handleSubmit}>
-          <div className='text-center'>
+          {/* <div className='text-center'>
             <h2 className='title py-12'>Checkout</h2>
-          </div>
+          </div> */}
           <div className='mx-auto flex sm:flex-row flex-col w-full gap-12'>
             <div className='w-full'>
               <h2 className='text-header pb-4'>Billing Details</h2>
@@ -222,7 +223,7 @@ const checkout = () => {
           </div>
         </form>
       </div>
-      <div className="border-b-2 pt-32"></div>
+      <div className="border-b-2"></div>
     </div>
   )
 }

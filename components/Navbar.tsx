@@ -19,7 +19,7 @@ function Navbar() {
               Cart
             </Link>
           </li>
-          <li className='px-2'>
+          <li className={linkLiClass}>
             <Link href="/shop/all">
               Shop
             </Link>

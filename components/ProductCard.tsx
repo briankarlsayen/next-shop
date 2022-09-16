@@ -31,9 +31,9 @@ const ProductCard = (props:any) => {
           <p>{props.title}</p>
           <p className="font-semibold">${props.price}</p>
         </div>
-        <div className="flex">
-          <p className="font-semibold uppercase cursor-pointer" onClick={handleAddCart}>Add to Cart</p>
-          <img className="ml-2 object-contain h-6 w-6" src="/cart.svg" alt="cart" />
+        <div className="flex group w-fit cursor-pointer ease-in delay-300 duration-1000">
+          <p className="font-semibold uppercase" onClick={handleAddCart}>Add to Cart</p>
+          <img className="ml-2 object-contain h-6 w-6 group-hover:rotate-12" src="/cart.svg" alt="cart" />
         </div>
       </div>
     </li>

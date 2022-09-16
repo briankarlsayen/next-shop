@@ -10,17 +10,17 @@ export const Footer = () => {
   }
   return (
     <section className="w-full flex flex-col justify-between">
-      <div className="flex w-full justify-center m-auto py-32 flex-1 x-spacing bg-[#DDC6A4]"> 
+      <div className="flex w-full justify-center m-auto min-h-[20rem] flex-1 x-spacing bg-[#DDC6A4]"> 
         {
           !isSubscribed ? 
-          <div className="max-w-[40rem] text-center">
+          <div className="max-w-[40rem] text-center my-auto">
             <h2 className="text-header">Subscribe to our newsletter and be in touch.</h2>
             <form className="flex pt-4 pb-4" onSubmit={e=> handleSubscribe(e)}>
               <input className="p-2 w-full outline-none" placeholder="Email Adress" value={email} onChange={e=> setEmail(e.target.value)} type="email" required/>
               <button className="hero-btn">Subscribe</button>
             </form>
           </div> :
-          <div className="max-w-[40rem] text-center">
+          <div className="max-w-[40rem] text-center my-auto">
             <h2 className="text-header">Thank you for subscribing.</h2>
           </div>
         }
