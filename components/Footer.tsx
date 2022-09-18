@@ -16,7 +16,7 @@ export const Footer = () => {
           <div className="max-w-[40rem] text-center my-auto">
             <h2 className="text-header">Subscribe to our newsletter and be in touch.</h2>
             <form className="flex pt-4 pb-4" onSubmit={e=> handleSubscribe(e)}>
-              <input className="p-2 w-full outline-none" placeholder="Email Adress" value={email} onChange={e=> setEmail(e.target.value)} type="email" required/>
+              <input className="py-2 px-4 w-full outline-none" placeholder="Email Adress" value={email} onChange={e=> setEmail(e.target.value)} type="email" required/>
               <button className="hero-btn">Subscribe</button>
             </form>
           </div> :

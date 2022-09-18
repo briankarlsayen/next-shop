@@ -4,7 +4,7 @@ import ProductCard from './ProductCard'
 
 const Related = ({products}: Products) => {
   return (
-    <div className='x-spacing max-w-[80rem] m-auto'>
+    <div className='max-w-[80rem] m-auto'>
       <h2 className='text-3xl uppercase'>Related Products</h2>
       <ul className="flex w-full flex-wrap gap-4 justify-between">
         { products.slice(0,3).map(product => {

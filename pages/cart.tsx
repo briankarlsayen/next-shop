@@ -124,7 +124,6 @@ const cart = () => {
         </div> */}
         {items.length ? <ShoppingCartContainer /> : <EmptyCart />}
       </div>
-      <div className="border-b-2 pt-32"></div>
     </div>
   )
 }

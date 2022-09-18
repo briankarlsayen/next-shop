@@ -7,8 +7,8 @@ declare var process : {
 }
 
 const center = {
-  lat: 14.355867,
-  lng: 120.980956
+  lat: 14.239884,
+  lng: 121.0595182
 };
 
 function Map() {
@@ -39,7 +39,7 @@ const GMap = ({onLoad, onUnmount}:any) => {
     <GoogleMap
         mapContainerClassName='w-full h-[45vh]'
         center={center}
-        zoom={10}
+        zoom={15}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >

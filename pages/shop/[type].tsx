@@ -9,8 +9,8 @@ const category: NextPage<{products: Product[], categories: any}> = ({products, c
   const router = useRouter();
   const {type} = router.query;
   return (
-    <div>
-      <div className='x-spacing max-w-[80rem] mx-auto py-20'>
+    <div className='x-spacing'>
+      <div className='max-w-[80rem] mx-auto py-20'>
         <ShopCategory categories={categories} type={type} />
         <div className='w-full flex flex-row gap-4'>
           <ul className="flex w-full flex-wrap gap-4">

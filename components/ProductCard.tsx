@@ -28,7 +28,7 @@ const ProductCard = (props:any) => {
       </Link>
       <div className="w-full p-4">
         <div className="w-full flex justify-between">
-          <p>{props.title}</p>
+          <p className="truncate">{props.title}</p>
           <p className="font-semibold">${props.price}</p>
         </div>
         <div className="flex group w-fit cursor-pointer ease-in delay-300 duration-1000">

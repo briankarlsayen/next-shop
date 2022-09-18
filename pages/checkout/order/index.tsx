@@ -8,8 +8,9 @@ const order = () => {
   const orderDetails = {
     id: "OR16941",
     createdAt: new Date(2022, 9, 16, 2, 37).toString(),
-    totalPay: 500,
+    totalPay: cartSubTotal,
     payMethod: "Direct bank transfer",
+    shipping: "Local pickup",
   }
 
   useEffect(() => {
@@ -38,19 +39,19 @@ const order = () => {
         <div>
           <div className='flex'>
             <p className='basis-1/2'>Order number:</p>
-            <span className='font-bold basis-1/2'>{orderDetails.id}</span>
+            <span className='basis-1/2'>{orderDetails.id}</span>
           </div>
           <div className='flex'>
             <p className='basis-1/2'>Date:</p>
-            <span className='font-bold basis-1/2'>{orderDetails.createdAt}</span>
+            <span className='basis-1/2'>{orderDetails.createdAt}</span>
           </div>
           <div className='flex'>
             <p className='basis-1/2'>Total:</p>
-            <span className='font-bold basis-1/2'>${orderDetails.totalPay}</span>
+            <span className='basis-1/2'>${orderDetails.totalPay}</span>
           </div>
           <div className='flex'>
             <p className='basis-1/2'>Payment method:</p>
-            <span className='font-bold basis-1/2'>{orderDetails.payMethod}</span>
+            <span className='basis-1/2'>{orderDetails.payMethod}</span>
           </div>
         </div>
         <h3 className='text-header pt-8 pb-4'>Order details</h3>
@@ -73,11 +74,11 @@ const order = () => {
           </div>
           <div className='flex'>
             <h4 className='text-subheader-uc basis-1/2'>Shipping</h4>
-            <p className='basis-1/2'>Local pickup</p>
+            <p className='basis-1/2'>{orderDetails.shipping}</p>
           </div>
           <div className='flex'>
             <h4 className='text-subheader-uc basis-1/2'>Payment Method</h4>
-            <p className='basis-1/2'>Direct bank transfer</p>
+            <p className='basis-1/2'>{orderDetails.payMethod}</p>
           </div>
           <div className='flex'>
             <h4 className='text-subheader-uc basis-1/2'>Total</h4>
@@ -91,7 +92,7 @@ const order = () => {
 
 const OrderItem = ({item}:any) => {
   return (
-    <div className='flex'>
+    <div className='flex gap-x-3'>
       <p className='basis-1/2'>{item.title} <span>x {item.quantity}</span></p>
       <p className='basis-1/2'>${item.subTotal}</p>
     </div>

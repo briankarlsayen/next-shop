@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 function Navbar() {
   const router = useRouter();
-  const linkLiClass = router.pathname === '/' ? 'text-white px-2 hover:text-gray-300' : 'text-black px-2'
+  const linkLiClass = router.pathname === '/' ? 'md:text-white px-2 text-black hover:text-[#2C5F3E] hover:md:text-gray-300' : 'hover:text-[#2C5F3E] px-2'
   return (
     <div className={`h-[5rem] w-full bg-transparent flex flex-row items-center justify-between x-spacing ${router.pathname === '/' ? 'absolute': ''}`}>
       <span className='logo'>
