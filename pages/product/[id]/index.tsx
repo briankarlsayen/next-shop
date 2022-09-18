@@ -63,11 +63,11 @@ const product = ({product, products}:ProductProps) => {
   return (
     <div className="w-full x-spacing py-20">
       <div className="flex justify-between max-w-[80rem] mx-auto gap-4 md:flex-row flex-col bg-white rounded-sm mb-20">
-        <div className='flex bg-white h-full items-center'>
+        <div className='flex bg-white h-full items-center md:flex-row flex-col min-h-[calc(73vh)]'>
           <div className="basis-3/4 h-full w-full items-center flex flex-col bg-white rounded-sm p-4 " key={product.id} >
-            <img className='max-h-[30rem] max-w-[30rem] w-full object-contain object-center flex-1' src={product.image} />
+            <img className='md:max-h-[30rem] md:max-w-[30rem] max-w-[20rem] w-full object-contain object-center flex-1' src={product.image} />
           </div>
-          <div className="basis-1/4 flex flex-col w-full p-4 justify-between h-full bg-[#DDC6A4] min-h-[calc(73vh)]">
+          <div className="basis-1/4 flex flex-col w-full p-4 justify-between h-full bg-[#DDC6A4] md:min-h-[calc(73vh)]">
             <div> 
               <p className='bg-[#4D4437] px-2 py-1 my-2 w-max text-white rounded-sm'>{product.category}</p>
               <div className='pb-4'>
@@ -77,7 +77,7 @@ const product = ({product, products}:ProductProps) => {
               </div>
               <div>
                 <div className='flex flex-col gap-2'>
-                  <div className='px-4 py-2 flex items-center w-full max-w-[8rem] justify-between mx-auto'>
+                  <div className='py-2 flex w-full max-w-[6rem] justify-between'>
                     <span id="minus" className='text-xl  cursor-pointer flex-1 flex justify-center hover:bg-[#342e26] bg-[#4D4437] text-white duration-100 ease-linear rounded-sm' onClick={(e)=>handleUpdateCount(e)}>&#45;</span>
                     <p className='text-xl px-2'>{itemCount}</p>
                     <span id="add" className='text-xl cursor-pointer flex-1 flex justify-center hover:bg-[#342e26] bg-[#4D4437] text-white duration-100 ease-linear rounded-sm'  onClick={(e)=>handleUpdateCount(e)}>&#43;</span>
@@ -96,8 +96,6 @@ const product = ({product, products}:ProductProps) => {
                     </button>
                   </div>
                 </div>
-                {/* <p className='uppercase pt-4'>Add to wishlist</p>
-                <p className='border-2 p-2 my-2 w-max'>{product.category}</p> */}
               </div>
               <div className='pt-4'>
                 <div className='flex items-center'>

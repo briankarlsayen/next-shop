@@ -39,7 +39,7 @@ const GMap = ({onLoad, onUnmount}:any) => {
     <GoogleMap
         mapContainerClassName='w-full h-[45vh]'
         center={center}
-        zoom={15}
+        zoom={10}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >

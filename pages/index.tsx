@@ -34,7 +34,7 @@ const Home: NextPage<{products: Product[], categories: any}> = ({ products, cate
       <section id='filler' className='w-full h-full relative'>
         <div className='absolute top-1/2 right-1/2'>
           <h1 className='text-white text-base italic'>Clothes made for humans, by humans.</h1>
-          <h1 className='text-white text-sm italic text-right'>- Alien</h1>
+          <h1 className='text-white text-sm italic text-right'>- Ulysses F. Oscar</h1>
         </div>
         <div className='w-full h-[30rem]'>
           <img className='object-cover object-center w-full h-full' src="https://images.unsplash.com/photo-1542060748-10c28b62716f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />
