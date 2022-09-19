@@ -9,7 +9,6 @@ type ProductProps = {
 }
 
 const product = ({product, products}:ProductProps) => {
-  console.log('product', product)
   const [itemCount, setItemCount] = useState(1)
   const [itemPrice, setItemPrice] = useState(product.price)
   const [itemDuplicate, setItemDuplicate] = useState(false)

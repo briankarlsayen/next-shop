@@ -5,7 +5,6 @@ export const Footer = () => {
   const [isSubscribed, setSubscribed] = useState(false)
   const handleSubscribe = (e:any) => {
     e.preventDefault()
-    console.log('email', email)
     setSubscribed(true)
   }
   return (

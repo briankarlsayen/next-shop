@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from "next/link"
 
 const Hero = () => {
   return (
@@ -11,7 +12,11 @@ const Hero = () => {
         <div>
           <p className='py-6 hero-subtitle'>Browse our latest collection of items to achive your full potential.</p>
         </div>
-        <button className='hero-btn'>Shop now</button>
+        <button className='hero-btn'>
+          <Link href='/shop/all' >
+            Shop now
+          </Link>
+        </button>
       </div>
       <div className='w-full md:basis-2/3 h-screen'>
         <div className='h-full'>

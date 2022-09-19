@@ -6,7 +6,6 @@ import Map from '../components/Map'
 
 function contact() {
   return <div className='py-20'>
-    {/* <h2 className='title text-center py-12 x-spacing'>Contact Us</h2> */}
     <Map />
     <div className='max-w-1/4 pt-12 text-center x-spacing flex flex-col gap-4'>
       <div>

@@ -1,7 +1,6 @@
 import Link from "next/link"
 
 export const Categories = ({categories}: any) => {
-  console.log('categories', categories)
   const categoryImg = [
     {
       id: 0,

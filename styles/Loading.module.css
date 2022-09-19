@@ -1,0 +1,10 @@
+.loading-container {
+  @apply z-[55] overflow-auto left-8 top-[35%] bottom-0 right-0 w-full h-full fixed;
+}
+.loading-width {
+  @apply z-[56] relative p-3 mx-auto my-0 max-w-full w-[600px];
+}
+.loading {
+  @apply flex-col overflow-hidden z-10 ease-linear p-5 justify-center
+  flex align-middle items-center w-full;
+}

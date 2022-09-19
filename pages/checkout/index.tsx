@@ -80,7 +80,6 @@ const checkout = () => {
     if(filteredArr.length === 0) {
       Router.push('/checkout/order')
     }
-    console.log('Order succesfully submitted')
   }
 
   const errorClass = "!border-red-500"

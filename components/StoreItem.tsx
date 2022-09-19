@@ -4,7 +4,6 @@ import { CartItem } from '../types';
 const StoreItem = ({item, items, setItems, totalArr, setTotalArr, updateCart, cartFinalSubTotal}:any) => {
   const [itemCount, setItemCount] = useState(item.quantity)
   const [itemPrice, setItemPrice] = useState(item.price * item.quantity)
-  console.log('item', item)
   const handleUpdateCount = (e:any) => {
     if(e.target.id === "minus") {
       if(itemCount > 1) {

@@ -7,10 +7,25 @@ import { Footer } from '../components/Footer'
 import Breadcrumb from "../components/Breadcrumb";
 import BreadcrumbItem from "../components/BreadcrumbItem";
 import { BreadCrumbProps } from '../types'
+import Loading from '../components/Loading';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [breadcrumbs, setBreadcrumbs] = useState<BreadCrumbProps[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadingHandler = () => {
+    console.log('loading...')
+    const handleStart = (url: any) => {
+      console.log('url', url)
+      url !== router.pathname ? setLoading(true) : setLoading(false);
+    };
+    const handleComplete = (url: any) => setLoading(false);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+  }
 
   useEffect(() => {
     // const pathWithoutQuery = router.asPath.split("")[0];
@@ -29,9 +44,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       };
     });
     setBreadcrumbs(breadcrumbsarr);
+
+    loadingHandler()
   }, [router.asPath]);
+  
   return (
     <>
+      <Loading loading={loading} />
       <Navbar />
       <Breadcrumb>
         {

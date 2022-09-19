@@ -15,7 +15,6 @@ const order = () => {
 
   useEffect(() => {
     const cartItems = localStorage.getItem('cart');
-    console.log('cartItems', cartItems)
     if(cartItems) {
       let parsedCart = JSON.parse(cartItems);
       setItems(parsedCart)
