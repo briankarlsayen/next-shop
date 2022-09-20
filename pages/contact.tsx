@@ -2,8 +2,6 @@
 import React from 'react'
 import Map from '../components/Map'
 
-
-
 function contact() {
   return <div className='py-20'>
     <Map />

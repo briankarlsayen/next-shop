@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <>
+    <div className={loading ? 'h-screen': ''}>
       <Loading loading={loading} />
       <Navbar />
       <Breadcrumb>
@@ -74,7 +74,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Breadcrumb>
       <Component {...pageProps} />
       <Footer />
-    </>
+    </div>
   );
 }
 

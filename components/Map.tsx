@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState} from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 declare var process : {
   env: {
@@ -16,7 +16,14 @@ function Map() {
     id: 'google-map-script',
     googleMapsApiKey: process.env.NEXT_PUBLIC_GMAP_API_KEY
   })
+  const [wait, setWait] = useState(false)
 
+  if(isLoaded) {
+    setTimeout(
+      () => setWait(true),
+      3000
+    )
+  }
   const [map, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map: any) {
@@ -29,7 +36,7 @@ function Map() {
     setMap(null)
   }, [])
 
-  return isLoaded ? (
+  return wait ? (
       <GMap onLoad={onLoad} onUnmount={onUnmount} />
   ) : <></>
 }
@@ -39,7 +46,7 @@ const GMap = ({onLoad, onUnmount}:any) => {
     <GoogleMap
         mapContainerClassName='w-full h-[45vh]'
         center={center}
-        zoom={10}
+        zoom={20}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
