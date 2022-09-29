@@ -14,7 +14,18 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [breadcrumbs, setBreadcrumbs] = useState<BreadCrumbProps[]>([]);
   const [loading, setLoading] = useState(false);
 
-  
+  const loadingHandler = () => {
+    console.log('loading...')
+    const handleStart = (url: any) => {
+      console.log('url', url)
+      url !== router.pathname ? setLoading(true) : setLoading(false);
+    };
+    const handleComplete = (url: any) => setLoading(false);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+  }
 
   useEffect(() => {
     // const pathWithoutQuery = router.asPath.split("")[0];
@@ -37,19 +48,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     loadingHandler()
   }, [router.asPath]);
   
-  const loadingHandler = () => {
-    console.log('loading...')
-    const handleStart = (url: any) => {
-      console.log('url', url)
-      url !== router.pathname ? setLoading(true) : setLoading(false);
-    };
-    const handleComplete = (url: any) => setLoading(false);
-
-    router.events.on("routeChangeStart", handleStart);
-    router.events.on("routeChangeComplete", handleComplete);
-    router.events.on("routeChangeError", handleComplete);
-  }
-
   return (
     <div className={loading ? 'h-screen': ''}>
       <Loading loading={loading} />
