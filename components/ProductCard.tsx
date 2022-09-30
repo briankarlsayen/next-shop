@@ -23,7 +23,7 @@ const ProductCard = (props:any) => {
     <li className="xl:w-[calc(33.33%-1rem)] md:w-[calc(50%-1rem)] w-full items-center flex flex-col bg-white rounded-sm" key={props.id} >
       <Link href={"/product/[id]"} as={`/product/${props.id}`}>
         <div className="h-[40vh] bg-white w-full hover:border-black rounded-sm cursor-pointer hover:brightness-90 duration-75 ease-in-out">
-          <img className='h-full object-center p-4 flex-1  mx-auto' src={props.image} />
+          <img className='h-full object-center p-4 flex-1 mx-auto' src={props.image} />
         </div>
       </Link>
       <div className="w-full p-4">

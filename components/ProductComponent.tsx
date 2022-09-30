@@ -61,12 +61,12 @@ const Product = ({product, products}:ProductProps) => {
 
   return (
     <>
-      <div className="flex justify-between max-w-[80rem] mx-auto gap-4 md:flex-row flex-col bg-white rounded-sm mb-20">
-        <div className='flex bg-white h-full items-center md:flex-row flex-col min-h-[calc(73vh)]'>
+      <div className="flex justify-between max-w-[80rem] mx-auto gap-4 flex-col bg-white rounded-sm mb-20">
+        <div className='flex bg-white h-full items-center lg:flex-row flex-col lg:min-h-[calc(73vh)]'>
           <div className="basis-3/4 h-full w-full items-center flex flex-col bg-white rounded-sm p-4 " key={product.id} >
-            <img className='md:max-h-[30rem] md:max-w-[30rem] max-w-[20rem] w-full object-contain object-center flex-1' src={product.image} />
+            <img className='md:max-h-[30rem] md:max-w-[30rem] max-w-[20rem] w-full object-contain object-center md:flex-1 h-[20rem]' src={product.image} />
           </div>
-          <div className="basis-1/4 flex flex-col w-full p-4 justify-between h-full bg-[#DDC6A4] md:min-h-[calc(73vh)]">
+          <div className="basis-1/4 flex flex-col w-full p-4 justify-between h-full bg-[#DDC6A4] lg:min-h-[calc(73vh)]">
             <div> 
               <p className='bg-[#4D4437] px-2 py-1 my-2 w-max text-white rounded-sm'>{product.category}</p>
               <div className='pb-4'>
