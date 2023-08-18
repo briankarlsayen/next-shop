@@ -50,16 +50,17 @@ const Checkout = () => {
   };
 
   const updateField = (e: any) => {
-    setIsValid(checkForm());
+    console.log('hey');
+    setIsValid(checkForm);
     setBilling({
       ...billing,
       [e.target.name]: e.target.value,
     });
   };
 
-  // TODO detect if error in input then apply error className
-
   const checkForm = () => {
+    console.log('check...');
+    console.log('billing', billing);
     const filteredArr: any[] = [];
     Object.entries(billing).map(([key, value]) => {
       if (value === '') filteredArr.push(key);
@@ -77,6 +78,7 @@ const Checkout = () => {
     const errorData: any = Object.fromEntries(errorItemsArr);
     const goodData: any = Object.fromEntries(goodItemsArr);
     const newData = Object.assign(errorData, goodData);
+    console.log('newData', newData);
     setErrorInput(newData);
 
     return filteredArr.length === 0;
@@ -109,17 +111,6 @@ const Checkout = () => {
       value: 'cash',
     },
   ];
-
-  const submitOrderBtn =
-    payMethod === 'cash' ? (
-      <div onClick={handleSubmit} className='w-full'>
-        <FillBtn text='Place order' url='' />
-      </div>
-    ) : (
-      <div className='w-full'>
-        <PaypalBtn cartSubTotal={cartSubTotal} />
-      </div>
-    );
 
   return (
     <>
@@ -336,6 +327,7 @@ const Checkout = () => {
                   handleSubmit={handleSubmit}
                   isValid={isValid}
                   checkForm={checkForm}
+                  billing={billing}
                 />
               </div>
             </div>

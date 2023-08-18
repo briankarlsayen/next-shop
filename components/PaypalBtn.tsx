@@ -1,7 +1,13 @@
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import React, { useEffect, useState } from 'react';
 import FillBtn from './FillBtn';
-function PaypalBtn({ cartSubTotal, handleSubmit, isValid, checkForm }: any) {
+function PaypalBtn({
+  cartSubTotal,
+  handleSubmit,
+  isValid,
+  checkForm,
+  billing,
+}: any) {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   useEffect(() => {
     const addPaypalScript = () => {
@@ -16,8 +22,6 @@ function PaypalBtn({ cartSubTotal, handleSubmit, isValid, checkForm }: any) {
       document.body.appendChild(script);
     };
     addPaypalScript();
-    if (window?.paypal) {
-    }
   }, []);
 
   useEffect(() => {
@@ -46,38 +50,13 @@ function PaypalBtn({ cartSubTotal, handleSubmit, isValid, checkForm }: any) {
             //     });
           },
           onClick: function (data, actions) {
+            console.log('isValid 22', isValid);
+            // console.log('data', data);
             checkForm();
-            actions.reject();
+            // actions.reject();
           },
         })
         .render('#paypal-buttons-container');
-
-      // window?.paypal
-      //   ?.Buttons({
-      //     // Order is created on the server and the order id is returned
-      //     createOrder: function (data, actions) {
-      //       return actions.order.create({
-      //         purchase_units: [
-      //           {
-      //             amount: {
-      //               value: cartSubTotal,
-      //             },
-      //           },
-      //         ],
-      //       });
-      //     },
-      //     // Finalize the transaction on the server after payer approval
-      //     onApprove: function (data, actions) {
-      //       return actions.order?.capture().then(function (details) {
-      //         alert(
-      //           'Transaction completed by ' + details.payer.name?.given_name
-      //         );
-      //       }) as any;
-      //     },
-      //   })
-      //   .render('#paypal-button-container');
-
-      // Listen for changes to the radio buttons
       document
         .querySelectorAll('input[name=payment-option]')
         .forEach(function (el) {
@@ -127,11 +106,21 @@ function PaypalBtn({ cartSubTotal, handleSubmit, isValid, checkForm }: any) {
       }
     }
   }, [scriptLoaded]);
-  return scriptLoaded ? <Btns handleSubmit={handleSubmit} /> : null;
+  return scriptLoaded ? (
+    <Btns handleSubmit={handleSubmit} checkForm={checkForm} isValid={isValid} />
+  ) : null;
   // return scriptLoaded ? <div id='paypal-button-container'></div> : null;
 }
 
-const Btns = ({ handleSubmit }: any) => {
+const Btns = ({ handleSubmit, checkForm, isValid }: any) => {
+  const handlePaypalBtnClick = () => {
+    console.log('click...');
+    checkForm();
+  };
+  const handleCashBtn = (e: any) => {
+    console.log('click2', isValid);
+    handleSubmit(e);
+  };
   return (
     <div>
       <h2 className='text-2xl pb-2'>Payment Method</h2>
@@ -145,8 +134,11 @@ const Btns = ({ handleSubmit }: any) => {
         <p className='pl-2'>Pay with cash</p>
       </label>
       <div className='pt-4 w-full'>
-        <div id='paypal-buttons-container'></div>
-        <div id='alternate-button-container' onClick={handleSubmit}>
+        <div
+          id='paypal-buttons-container'
+          onClick={() => console.log('hahahaha')}
+        ></div>
+        <div id='alternate-button-container' onClick={handleCashBtn}>
           <FillBtn text='Cash' url='' />
         </div>
       </div>
