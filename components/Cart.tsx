@@ -1,72 +1,81 @@
-import {useState, useEffect, useCallback} from 'react'
+import { useState, useEffect, useCallback } from 'react';
 import StoreItem from '../components/StoreItem';
 import { CartItem, CartItems, SubTotalPrice } from '../types';
-import Link from "next/link"
+import Link from 'next/link';
 import FillBtn from '../components/FillBtn';
 
-
 const Cart = () => {
-  const [items, setItems] = useState<CartItem[]>([])
-  const [totalArr, setTotalArr] = useState<SubTotalPrice[]>([{
-    id: 0,
-    subTotal: 0
-  }])
-  const [cartSubTotal, setCartSubTotal] = useState(0)
-  const [callback, setCallback] = useState(false)
-  const [shippingOpt, setShippingOpt] = useState('solo')
-  
-  
-  function updateCart (cartArr:any) {
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [totalArr, setTotalArr] = useState<SubTotalPrice[]>([
+    {
+      id: 0,
+      subTotal: 0,
+    },
+  ]);
+  const [cartSubTotal, setCartSubTotal] = useState(0);
+  const [callback, setCallback] = useState(false);
+  const [shippingOpt, setShippingOpt] = useState('solo');
+
+  function updateCart(cartArr: any) {
     localStorage.setItem('cart', JSON.stringify(cartArr));
-    setCallback(!callback)
+    setCallback(!callback);
   }
   useEffect(() => {
-    setItems(items)
-  }, [callback])
+    setItems(items);
+  }, [callback]);
 
   useEffect(() => {
     const cartItems = localStorage.getItem('cart');
-    if(cartItems) {
+    if (cartItems) {
       let parsedCart = JSON.parse(cartItems);
-      setItems(parsedCart)
-      inititalCartTotal(parsedCart)
+      setItems(parsedCart);
+      inititalCartTotal(parsedCart);
     }
-  }, []) 
+  }, []);
 
-  const inititalCartTotal = (parsedCart:any) => {
+  const inititalCartTotal = (parsedCart: any) => {
     const cartSubTotalArr = [];
-    for(let value of parsedCart) {
-      cartSubTotalArr.push({id: value.id, subTotal: value.subTotal})
+    for (let value of parsedCart) {
+      cartSubTotalArr.push({ id: value.id, subTotal: value.subTotal });
     }
-    setTotalArr(cartSubTotalArr)
-    cartFinalSubTotal(cartSubTotalArr)
-  }
+    setTotalArr(cartSubTotalArr);
+    cartFinalSubTotal(cartSubTotalArr);
+  };
 
-  const cartFinalSubTotal = (totalArr:SubTotalPrice[]) => {
+  const cartFinalSubTotal = (totalArr: SubTotalPrice[]) => {
     let totalArrSum = 0;
-    for(let value of totalArr) {
-      totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2))
+    for (let value of totalArr) {
+      totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2));
     }
-    setCartSubTotal(totalArrSum)
-  }
+    setCartSubTotal(totalArrSum);
+  };
 
   const ShoppingCartContainer = () => {
-    return(
+    return (
       <div className='cart max-w-[80rem] m-auto'>
         <div className='justify-center selection:w-full flex flex-col items-center pb-20 '>
           <div className='max-w-[80rem] w-full'>
             <div className='flex justify-between border-b-2 py-4 bg-white'>
               <div className='basis-6 md:basis-1/6'></div>
-              <h3 className="basis-2/6 text-subheader-uc">Product</h3>
-              <h3 className="basis-1/6 text-subheader-uc">Price</h3>
-              <h3 className="basis-1/6 text-subheader-uc">Quantity</h3>
-              <h3 className="basis-1/6 text-subheader-uc">Subtotal</h3>
+              <h3 className='basis-2/6 text-subheader-uc'>Product</h3>
+              <h3 className='basis-1/6 text-subheader-uc'>Price</h3>
+              <h3 className='basis-1/6 text-subheader-uc'>Quantity</h3>
+              <h3 className='basis-1/6 text-subheader-uc'>Subtotal</h3>
             </div>
             <div className='flex flex-col gap-2 py-4 bg-white'>
-              {items.map(item => {
-                return(
-                  <StoreItem key={item.id} item={item} items={items} setItems={setItems} totalArr={totalArr} setTotalArr={setTotalArr} updateCart={updateCart} cartFinalSubTotal={cartFinalSubTotal} />
-                )
+              {items.map((item) => {
+                return (
+                  <StoreItem
+                    key={item.id}
+                    item={item}
+                    items={items}
+                    setItems={setItems}
+                    totalArr={totalArr}
+                    setTotalArr={setTotalArr}
+                    updateCart={updateCart}
+                    cartFinalSubTotal={cartFinalSubTotal}
+                  />
+                );
               })}
             </div>
           </div>
@@ -83,23 +92,44 @@ const Cart = () => {
               <form className='basis-1/3'>
                 <ul>
                   <li className='flex'>
-                    <label htmlFor="shippingOpt" >
-                      <input className='mr-2' type="radio" name="shippingOpt" id="shippingOpt" 
-                      value="solo" onChange={(e)=>setShippingOpt(e.target.value)} checked={shippingOpt === "solo"} />
+                    <label htmlFor='shippingOpt'>
+                      <input
+                        className='mr-2'
+                        type='radio'
+                        name='shippingOpt'
+                        id='shippingOpt'
+                        value='solo'
+                        onChange={(e) => setShippingOpt(e.target.value)}
+                        checked={shippingOpt === 'solo'}
+                      />
                     </label>
                     Flat rate
                   </li>
                   <li className='flex'>
-                    <label htmlFor="shippingOpt" >
-                      <input className='mr-2' type="radio" name="shippingOpt" id="shippingOpt" 
-                      value="free-ship" onChange={(e)=>setShippingOpt(e.target.value)} checked={shippingOpt === "free-ship"} />
+                    <label htmlFor='shippingOpt'>
+                      <input
+                        className='mr-2'
+                        type='radio'
+                        name='shippingOpt'
+                        id='shippingOpt'
+                        value='free-ship'
+                        onChange={(e) => setShippingOpt(e.target.value)}
+                        checked={shippingOpt === 'free-ship'}
+                      />
                       Free shipping
                     </label>
                   </li>
                   <li className='flex'>
-                    <label htmlFor="shippingOpt" >
-                      <input className='mr-2' type="radio" name="shippingOpt" id="shippingOpt" 
-                      value="local" onChange={(e)=>setShippingOpt(e.target.value)} checked={shippingOpt === "local"} />
+                    <label htmlFor='shippingOpt'>
+                      <input
+                        className='mr-2'
+                        type='radio'
+                        name='shippingOpt'
+                        id='shippingOpt'
+                        value='local'
+                        onChange={(e) => setShippingOpt(e.target.value)}
+                        checked={shippingOpt === 'local'}
+                      />
                       Local pickup
                     </label>
                   </li>
@@ -112,10 +142,10 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <FillBtn text="Proceed to checkout" url="/checkout" />
+        <FillBtn text='Proceed to checkout' url='/checkout' />
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div>
@@ -126,16 +156,16 @@ const Cart = () => {
         {items.length ? <ShoppingCartContainer /> : <EmptyCart />}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const EmptyCart = () => {
-  return(
+  return (
     <div className='text-center'>
       <h3 className='text-2xl'>Your cart is currently empty</h3>
-      <FillBtn text="Return to shop" url="/" />
+      <FillBtn text='Return to shop' url='/' />
     </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;

@@ -1,23 +1,23 @@
 export interface Product {
-  id:          number;
-  title:       string;
-  price:       number;
+  id: number;
+  title: string;
+  price: number;
   description: string;
-  category:    ProductCategory;
-  image:       string;
-  rating:      Rating;
+  category: ProductCategory;
+  image: string;
+  rating: Rating;
 }
 
 export interface CartItem {
-  id:          number;
-  title:       string;
-  price:       number;
+  id: number;
+  title: string;
+  price: number;
   description: string;
-  category:    ProductCategory;
-  image:       string;
-  rating:      Rating;
-  subTotal:    number;
-  quantity:    number;
+  category: ProductCategory;
+  image: string;
+  rating: Rating;
+  subTotal: number;
+  quantity: number;
 }
 
 export interface CartItems {
@@ -32,7 +32,7 @@ export enum ProductCategory {
 }
 
 export interface Rating {
-  rate:  number;
+  rate: number;
   count: number;
 }
 
@@ -54,7 +54,8 @@ export interface SubTotalPrice {
 
 export interface FillBtnProps {
   text: string;
-  url: string;
+  url?: string;
+  type?: 'button' | 'submit' | 'reset'
 }
 
 export interface ErrorInputProps {
@@ -68,7 +69,7 @@ export interface ErrorInputProps {
 }
 
 export interface ErrorInputArrProps {
-  errorArr : ErrorInputProps[]
+  errorArr: ErrorInputProps[]
 }
 
 export interface BreadCrumbProps {

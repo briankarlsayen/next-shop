@@ -1,14 +1,15 @@
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import React, { useEffect, useState } from 'react';
 import FillBtn from './FillBtn';
-function PaypalBtn({
-  cartSubTotal,
-  handleSubmit,
-  isValid,
-  checkForm,
-  billing,
-}: any) {
+import { checkoutStore } from '../store/CheckoutStore';
+// import { redirect } from 'next/router';
+import { useRouter } from 'next/router';
+
+function PaypalBtn() {
   const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [isPaypal, setPaypal] = useState(true);
+  const { billingInfo, updatePaymentMethod } = checkoutStore((state) => state);
+  const router = useRouter();
   useEffect(() => {
     const addPaypalScript = () => {
       const script = document.createElement('script');
@@ -27,119 +28,94 @@ function PaypalBtn({
   useEffect(() => {
     if (window?.paypal?.Buttons && window?.paypal.Marks) {
       window?.paypal.Marks().render('#paypal-marks-container');
-
       window?.paypal
         .Buttons({
-          onInit: function (data, actions) {
-            // Disable the buttons
-
-            if (isValid) {
-              actions.enable();
-            } else {
-              actions.disable();
-            }
-            // if (isValid) {
-            // }
-
-            // Listen for changes to the input
-            //   document.querySelector('#userForm input')
-            //     .addEventListener('blur', function(event) {
-            //       if (validateFields()) {
-            //         actions.enable();
-            //       }
-            //     });
+          createOrder: function (data, actions) {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: billingInfo.cartSubTotal.toString(),
+                  },
+                },
+              ],
+            });
           },
-          onClick: function (data, actions) {
-            console.log('isValid 22', isValid);
-            // console.log('data', data);
-            checkForm();
-            // actions.reject();
+          onApprove: function (data, actions): any {
+            return actions.order?.capture().then(function (details) {
+              console.log('data', details);
+              router.push('/checkout/order');
+            });
           },
         })
         .render('#paypal-buttons-container');
-      document
-        .querySelectorAll('input[name=payment-option]')
-        .forEach(function (el) {
-          el.addEventListener('change', function (event: any) {
-            // If PayPal is selected, show the PayPal button
-            let alternateBtnContainer,
-              paypalBtnContainer = null;
-            if (event.target?.value === 'paypal') {
-              alternateBtnContainer = document.body.querySelector<HTMLElement>(
-                '#alternate-button-container'
-              );
-              if (alternateBtnContainer) {
-                alternateBtnContainer.style.display = 'none';
-              }
-              paypalBtnContainer = document.body.querySelector<HTMLElement>(
-                '#paypal-buttons-container'
-              );
-              if (paypalBtnContainer) {
-                paypalBtnContainer.style.display = 'block';
-              }
-            }
-
-            // If alternate funding is selected, show a different button
-            if (event.target?.value === 'alternate') {
-              alternateBtnContainer = document.body.querySelector<HTMLElement>(
-                '#alternate-button-container'
-              );
-              if (alternateBtnContainer) {
-                alternateBtnContainer.style.display = 'block';
-              }
-              paypalBtnContainer = document.body.querySelector<HTMLElement>(
-                '#paypal-buttons-container'
-              );
-              if (paypalBtnContainer) {
-                paypalBtnContainer.style.display = 'none';
-              }
-            }
-          });
-        });
-
-      // Hide non-PayPal button by default
-      const nonPaypal = document.body.querySelector<HTMLElement>(
-        '#alternate-button-container'
-      );
-      if (nonPaypal) {
-        nonPaypal.style.display = 'none';
-      }
     }
   }, [scriptLoaded]);
+
+  const handleUpdate = (e: any) => {
+    console.log('e', e?.target?.value);
+    if (e?.target?.value === 'cash') {
+      setPaypal(false);
+    } else {
+      setPaypal(true);
+    }
+    updatePaymentMethod(e?.target?.value);
+  };
+
   return scriptLoaded ? (
-    <Btns handleSubmit={handleSubmit} checkForm={checkForm} isValid={isValid} />
+    <Btns
+      isPaypal={isPaypal}
+      setPaypal={setPaypal}
+      handleUpdate={handleUpdate}
+    />
   ) : null;
-  // return scriptLoaded ? <div id='paypal-button-container'></div> : null;
 }
 
-const Btns = ({ handleSubmit, checkForm, isValid }: any) => {
-  const handlePaypalBtnClick = () => {
-    console.log('click...');
-    checkForm();
-  };
-  const handleCashBtn = (e: any) => {
-    console.log('click2', isValid);
-    handleSubmit(e);
-  };
+const Btns = ({ isPaypal, setPaypal, handleUpdate }: any) => {
+  const hiddenBtn = 'hidden';
+  const showBtn = 'block';
   return (
-    <div>
-      <h2 className='text-2xl pb-2'>Payment Method</h2>
-      <label className='flex'>
-        <input type='radio' name='payment-option' value='paypal' checked />
-        <div id='paypal-marks-container'></div>
-      </label>
+    <div className='x-spacing py-8 flex flex-col justify-center items-center'>
+      <div className='max-w-xl w-full'>
+        <h2 className='text-header pb-4'>Payment Method</h2>
+        <ul>
+          <li>
+            <label className='flex'>
+              <input
+                type='radio'
+                name='payment-option'
+                value='paypal'
+                onChange={handleUpdate}
+                checked={isPaypal}
+              />
+              <div id='paypal-marks-container'></div>
+            </label>
+          </li>
+          <li>
+            <label className='flex'>
+              <input
+                type='radio'
+                name='payment-option'
+                value='cash'
+                onChange={handleUpdate}
+                checked={!isPaypal}
+              />
+              <p className='pl-2'>Pay with cash</p>
+            </label>
+          </li>
+        </ul>
 
-      <label className='flex'>
-        <input type='radio' name='payment-option' value='alternate' />
-        <p className='pl-2'>Pay with cash</p>
-      </label>
-      <div className='pt-4 w-full'>
-        <div
-          id='paypal-buttons-container'
-          onClick={() => console.log('hahahaha')}
-        ></div>
-        <div id='alternate-button-container' onClick={handleCashBtn}>
-          <FillBtn text='Cash' url='' />
+        <div className='pt-4 w-full'>
+          <div
+            id='paypal-buttons-container'
+            className={isPaypal ? showBtn : hiddenBtn}
+          ></div>
+          <div
+            id='alternate-button-container'
+            className={!isPaypal ? showBtn : hiddenBtn}
+          >
+            <FillBtn text='Cash' url='/checkout/order' />
+          </div>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import FillBtn from '../components/FillBtn';
 import { CartItem, ErrorInputProps } from '../types';
 import Router from 'next/router';
 import PaypalBtn from './PaypalBtn';
+import { checkoutStore } from '../store/CheckoutStore';
 
 const Checkout = () => {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -18,6 +19,10 @@ const Checkout = () => {
     email: '',
     shippingOpt: 'solo',
   });
+
+  const { billingInfo, step, updateBilling, updateStep } = checkoutStore(
+    (state) => state
+  );
   const [errorInput, setErrorInput] = useState({
     fullName: false,
     country: false,
@@ -27,9 +32,6 @@ const Checkout = () => {
     phone: false,
     email: false,
   });
-
-  const [payMethod, setPayMethod] = useState('paypal');
-  const [isValid, setIsValid] = useState(false);
 
   // * get items data
   useEffect(() => {
@@ -50,8 +52,6 @@ const Checkout = () => {
   };
 
   const updateField = (e: any) => {
-    console.log('hey');
-    setIsValid(checkForm);
     setBilling({
       ...billing,
       [e.target.name]: e.target.value,
@@ -85,47 +85,17 @@ const Checkout = () => {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const isValid = checkForm();
-    console.log('isValid', isValid);
-    // if (isValid) {
-    //   Router.push('/checkout/order');
-    // }
+    updateStep(2);
+    updateBilling({ ...billing });
   };
 
   const errorClass = '!border-red-500';
 
-  const paymentMethods = [
-    {
-      id: 1,
-      name: 'Paypal',
-      value: 'paypal',
-    },
-    {
-      id: 2,
-      name: 'Credit card',
-      value: 'credit-card',
-    },
-    {
-      id: 3,
-      name: 'Cash',
-      value: 'cash',
-    },
-  ];
-
   return (
     <>
-      <div className='x-spacing py-20'>
-        <form className='max-w-[80rem] mx-auto' onSubmit={handleSubmit}>
+      <div className='x-spacing py-8'>
+        <form className='max-w-xl mx-auto' onSubmit={handleSubmit}>
           <div className='mx-auto flex sm:flex-row flex-col w-full gap-12'>
-            <OrderDetails
-              items={items}
-              cartSubTotal={cartSubTotal}
-              billing={billing}
-              setBilling={setBilling}
-              paymentMethods={paymentMethods}
-              payMethod={payMethod}
-              setPayMethod={setPayMethod}
-            />
             <div className='w-full'>
               <div className='w-full'>
                 <h2 className='text-header pb-4'>Billing Details</h2>
@@ -321,162 +291,13 @@ const Checkout = () => {
                   </div>
                 </div>
               </div>
-              <div className='w-full'>
-                <PaypalBtn
-                  cartSubTotal={cartSubTotal}
-                  handleSubmit={handleSubmit}
-                  isValid={isValid}
-                  checkForm={checkForm}
-                  billing={billing}
-                />
-              </div>
+              <FillBtn text='Next' type='submit' />
             </div>
           </div>
         </form>
       </div>
       <div className='border-b-2'></div>
     </>
-  );
-};
-
-// const
-
-const ProductItem = ({ item }: any) => {
-  return (
-    <li className='flex justify-between'>
-      <p className='basis-2/3 pr-2'>
-        ×{item.quantity} {item.title}
-      </p>
-      <p className='basis-1/3'>${item.subTotal}</p>
-    </li>
-  );
-};
-
-const OrderDetails = ({
-  items,
-  cartSubTotal,
-  billing,
-  setBilling,
-  paymentMethods,
-  payMethod,
-  setPayMethod,
-}: any) => {
-  return (
-    <div className='w-full'>
-      <h2 className='text-header pb-4'>Your Order</h2>
-      <div className='flex flex-col gap-4'>
-        <div className='flex justify-between'>
-          <h4 className='text-subheader-uc'>Product</h4>
-          <h4 className='text-subheader-uc basis-1/3'>Subtotal</h4>
-        </div>
-        <div>
-          <ul>
-            {items.length
-              ? items.map((item: any) => {
-                  return <ProductItem key={item.id} item={item} />;
-                })
-              : null}
-          </ul>
-        </div>
-        <div className='flex justify-between'>
-          <h4 className='text-subheader-uc'>Subtotal</h4>
-          <p className='basis-1/3'>${cartSubTotal}</p>
-        </div>
-        <div className='flex justify-between'>
-          <h4 className='text-subheader-uc basis-2/3'>Shipping</h4>
-          <div className='basis-1/3'>
-            <ul>
-              <li className='flex'>
-                <label htmlFor='shippingOpt'>
-                  <input
-                    className='mr-2'
-                    type='radio'
-                    name='shippingOpt'
-                    id='shippingOpt'
-                    value='solo'
-                    onChange={(e) =>
-                      setBilling({
-                        ...billing,
-                        shippingOpt: e.target.value,
-                      })
-                    }
-                    checked={billing.shippingOpt === 'solo'}
-                  />
-                </label>
-                Flat rate
-              </li>
-              <li className='flex'>
-                <label htmlFor='shippingOpt'>
-                  <input
-                    className='mr-2'
-                    type='radio'
-                    name='shippingOpt'
-                    id='shippingOpt'
-                    value='free-ship'
-                    onChange={(e) =>
-                      setBilling({
-                        ...billing,
-                        shippingOpt: e.target.value,
-                      })
-                    }
-                    checked={billing.shippingOpt === 'free-ship'}
-                  />
-                  Free shipping
-                </label>
-              </li>
-              <li className='flex'>
-                <label htmlFor='shippingOpt'>
-                  <input
-                    className='mr-2'
-                    type='radio'
-                    name='shippingOpt'
-                    id='shippingOpt'
-                    value='local'
-                    onChange={(e) =>
-                      setBilling({
-                        ...billing,
-                        shippingOpt: e.target.value,
-                      })
-                    }
-                    checked={billing.shippingOpt === 'local'}
-                  />
-                  Local pickup
-                </label>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className='flex justify-between'>
-          <h4 className='text-subheader-uc basis-2/3'>Payment Method</h4>
-          <div className='basis-1/3'>
-            <ul>
-              {paymentMethods.map((method: any) => {
-                return (
-                  <li className='flex' key={method.id}>
-                    <label htmlFor='payMethod'>
-                      <input
-                        className='mr-2'
-                        type='radio'
-                        name='payMethod'
-                        id='payMethod'
-                        value='solo'
-                        onChange={(e) => setPayMethod(method.value)}
-                        checked={payMethod === method.value}
-                      />
-                    </label>
-                    {method.name}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
-        <div className='flex justify-between'>
-          <h4 className='text-subheader-uc'>Total</h4>
-          <p className='basis-1/3'>${cartSubTotal}</p>
-        </div>
-      </div>
-    </div>
   );
 };
 

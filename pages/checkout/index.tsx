@@ -1,7 +1,8 @@
 import Checkout from '../../components/Checkout';
+import CheckoutSteps from '../../components/CheckoutSteps';
 
 const checkout = () => {
-  return <Checkout />
-}
+  return <CheckoutSteps />;
+};
 
-export default checkout
+export default checkout;
