@@ -55,7 +55,8 @@ export interface SubTotalPrice {
 export interface FillBtnProps {
   text: string;
   url?: string;
-  type?: 'button' | 'submit' | 'reset'
+  type?: 'button' | 'submit' | 'reset',
+  className?: string
 }
 
 export interface ErrorInputProps {

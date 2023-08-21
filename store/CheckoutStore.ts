@@ -5,18 +5,6 @@ interface IZustand {
   get?: any;
 }
 
-const cartFinalSubTotal = () => {
-  const cartItems = localStorage?.getItem('cart');
-  let totalArrSum = 0;
-  if (cartItems) {
-    let parsedCart = JSON.parse(cartItems);
-    for (let value of parsedCart) {
-      totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2))
-    }
-  }
-  return totalArrSum
-}
-
 const billingInfo = {
   fullName: '',
   country: '',
@@ -26,7 +14,7 @@ const billingInfo = {
   phone: '',
   email: '',
   shippingOpt: 'solo',
-  cartSubTotal: cartFinalSubTotal()
+  cartSubTotal: 0
 };
 const step = 1
 const MAX_STEP = 3

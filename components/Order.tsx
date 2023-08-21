@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CartItem } from '../types';
 import { checkoutStore } from '../store/CheckoutStore';
 
@@ -6,7 +6,6 @@ const Order = () => {
   const [items, setItems] = useState<CartItem[]>([]);
 
   const { billingInfo, paymentMethod } = checkoutStore((state) => state);
-  console.log('billingInfo', billingInfo);
 
   const shippingOpts = [
     {
@@ -38,7 +37,6 @@ const Order = () => {
     <div className='w-full'>
       <div className='max-w-3xl mx-auto x-spacing min-h-screen'>
         <h2 className='text-4xl text-center py-12'>Order Confirmation</h2>
-        {/* <h3 className='text-xl pb-4'>Thank you. Your order has been received.</h3> */}
         <div>
           <div className='flex'>
             <p className='basis-1/2'>Order number:</p>

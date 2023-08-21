@@ -1,14 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import FillBtn from '../components/FillBtn';
-import { CartItem, ErrorInputProps } from '../types';
-import Router from 'next/router';
-import PaypalBtn from './PaypalBtn';
 import { checkoutStore } from '../store/CheckoutStore';
 
 const Checkout = () => {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [cartSubTotal, setCartSubTotal] = useState(0);
-  const [redirect, setRedirect] = useState('');
   const [billing, setBilling] = useState({
     fullName: '',
     country: '',
@@ -20,37 +14,7 @@ const Checkout = () => {
     shippingOpt: 'solo',
   });
 
-  const { billingInfo, step, updateBilling, updateStep } = checkoutStore(
-    (state) => state
-  );
-  const [errorInput, setErrorInput] = useState({
-    fullName: false,
-    country: false,
-    street: false,
-    city: false,
-    zcode: false,
-    phone: false,
-    email: false,
-  });
-
-  // * get items data
-  useEffect(() => {
-    const cartItems = localStorage.getItem('cart');
-    if (cartItems) {
-      let parsedCart = JSON.parse(cartItems);
-      setItems(parsedCart);
-      cartFinalSubTotal(parsedCart);
-    }
-  }, []);
-
-  const cartFinalSubTotal = (totalArr: CartItem[]) => {
-    let totalArrSum = 0;
-    for (let value of totalArr) {
-      totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2));
-    }
-    setCartSubTotal(totalArrSum);
-  };
-
+  const { updateBilling, updateStep } = checkoutStore((state) => state);
   const updateField = (e: any) => {
     setBilling({
       ...billing,
@@ -58,38 +22,11 @@ const Checkout = () => {
     });
   };
 
-  const checkForm = () => {
-    console.log('check...');
-    console.log('billing', billing);
-    const filteredArr: any[] = [];
-    Object.entries(billing).map(([key, value]) => {
-      if (value === '') filteredArr.push(key);
-    });
-
-    const errorItemsArr: any[] = [];
-    const goodItemsArr: any[] = [];
-    Object.entries(errorInput).map(([key, value]) => {
-      if (filteredArr.includes(key)) {
-        errorItemsArr.push([key, true]);
-      } else {
-        goodItemsArr.push([key, false]);
-      }
-    });
-    const errorData: any = Object.fromEntries(errorItemsArr);
-    const goodData: any = Object.fromEntries(goodItemsArr);
-    const newData = Object.assign(errorData, goodData);
-    console.log('newData', newData);
-    setErrorInput(newData);
-
-    return filteredArr.length === 0;
-  };
   const handleSubmit = (e: any) => {
     e.preventDefault();
     updateStep(2);
     updateBilling({ ...billing });
   };
-
-  const errorClass = '!border-red-500';
 
   return (
     <>
@@ -108,9 +45,7 @@ const Checkout = () => {
                       Full Name
                     </label>
                     <input
-                      className={`form-input ${
-                        errorInput.fullName ? errorClass : ''
-                      }`}
+                      className='form-input'
                       name='fullName'
                       type='text'
                       id='fullName'
@@ -119,13 +54,6 @@ const Checkout = () => {
                       required
                       autoComplete='off'
                     />
-                    <span
-                      className={`form-error-msg ${
-                        errorInput.fullName ? 'block' : '!hidden'
-                      }`}
-                    >
-                      Full name is required
-                    </span>
                   </div>
                   <div className='form-input-container'>
                     <label
@@ -135,9 +63,7 @@ const Checkout = () => {
                       Country
                     </label>
                     <input
-                      className={`form-input ${
-                        errorInput.country ? errorClass : ''
-                      }`}
+                      className='form-input'
                       name='country'
                       type='text'
                       id='country'
@@ -146,13 +72,6 @@ const Checkout = () => {
                       required
                       autoComplete='off'
                     />
-                    <span
-                      className={`form-error-msg ${
-                        errorInput.country ? 'block' : '!hidden'
-                      }`}
-                    >
-                      Country is required
-                    </span>
                   </div>
                   <div className='form-input-container'>
                     <label
@@ -162,9 +81,7 @@ const Checkout = () => {
                       Street
                     </label>
                     <input
-                      className={`form-input ${
-                        errorInput.street ? errorClass : ''
-                      }`}
+                      className='form-input'
                       name='street'
                       type='text'
                       id='street'
@@ -173,13 +90,6 @@ const Checkout = () => {
                       required
                       autoComplete='off'
                     />
-                    <span
-                      className={`form-error-msg ${
-                        errorInput.street ? 'block' : '!hidden'
-                      }`}
-                    >
-                      Street is required
-                    </span>
                   </div>
                   <div className='form-input-container'>
                     <label
@@ -189,9 +99,7 @@ const Checkout = () => {
                       City
                     </label>
                     <input
-                      className={`form-input ${
-                        errorInput.city ? errorClass : ''
-                      }`}
+                      className='form-input'
                       name='city'
                       type='text'
                       id='city'
@@ -200,13 +108,6 @@ const Checkout = () => {
                       required
                       autoComplete='off'
                     />
-                    <span
-                      className={`form-error-msg ${
-                        errorInput.city ? 'block' : '!hidden'
-                      }`}
-                    >
-                      City is required
-                    </span>
                   </div>
                   <div className='form-input-container'>
                     <label
@@ -216,9 +117,7 @@ const Checkout = () => {
                       Zip Code
                     </label>
                     <input
-                      className={`form-input ${
-                        errorInput.zcode ? errorClass : ''
-                      }`}
+                      className='form-input'
                       name='zcode'
                       type='text'
                       id='zcode'
@@ -227,13 +126,6 @@ const Checkout = () => {
                       required
                       autoComplete='off'
                     />
-                    <span
-                      className={`form-error-msg ${
-                        errorInput.zcode ? 'block' : '!hidden'
-                      }`}
-                    >
-                      Zip Code is required
-                    </span>
                   </div>
                   <div className='form-input-container'>
                     <label
@@ -243,9 +135,7 @@ const Checkout = () => {
                       Phone
                     </label>
                     <input
-                      className={`form-input ${
-                        errorInput.phone ? errorClass : ''
-                      }`}
+                      className='form-input'
                       name='phone'
                       type='text'
                       id='phone'
@@ -254,13 +144,6 @@ const Checkout = () => {
                       required
                       autoComplete='off'
                     />
-                    <span
-                      className={`form-error-msg ${
-                        errorInput.phone ? 'block' : '!hidden'
-                      }`}
-                    >
-                      Phone is required
-                    </span>
                   </div>
                   <div className='form-input-container'>
                     <label
@@ -270,9 +153,7 @@ const Checkout = () => {
                       Email Address
                     </label>
                     <input
-                      className={`form-input ${
-                        errorInput.email ? errorClass : ''
-                      }`}
+                      className='form-input'
                       name='email'
                       type='email'
                       id='email'
@@ -281,13 +162,6 @@ const Checkout = () => {
                       required
                       autoComplete='off'
                     />
-                    <span
-                      className={`form-error-msg ${
-                        errorInput.email ? 'block' : '!hidden'
-                      }`}
-                    >
-                      Email Address is required
-                    </span>
                   </div>
                 </div>
               </div>

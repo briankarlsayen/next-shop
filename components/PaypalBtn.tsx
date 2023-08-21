@@ -8,8 +8,12 @@ import { useRouter } from 'next/router';
 function PaypalBtn() {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [isPaypal, setPaypal] = useState(true);
-  const { billingInfo, updatePaymentMethod } = checkoutStore((state) => state);
+  const { billingInfo, updatePaymentMethod, updateBilling } = checkoutStore(
+    (state) => state
+  );
   const router = useRouter();
+  const url = router.pathname;
+  console.log('router', router);
   useEffect(() => {
     const addPaypalScript = () => {
       const script = document.createElement('script');
@@ -53,7 +57,6 @@ function PaypalBtn() {
   }, [scriptLoaded]);
 
   const handleUpdate = (e: any) => {
-    console.log('e', e?.target?.value);
     if (e?.target?.value === 'cash') {
       setPaypal(false);
     } else {
@@ -62,20 +65,44 @@ function PaypalBtn() {
     updatePaymentMethod(e?.target?.value);
   };
 
+  const cartFinalSubTotal = () => {
+    const cartItems = localStorage?.getItem('cart');
+    let totalArrSum = 0;
+    if (cartItems) {
+      let parsedCart = JSON.parse(cartItems);
+      for (let value of parsedCart) {
+        totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2));
+      }
+    }
+    return totalArrSum;
+  };
+
+  const initializeData = () => {
+    updateBilling({ cartSubTotal: cartFinalSubTotal() });
+  };
+  useEffect(() => {
+    initializeData();
+  }, []);
+
   return scriptLoaded ? (
     <Btns
       isPaypal={isPaypal}
       setPaypal={setPaypal}
       handleUpdate={handleUpdate}
+      url={url}
     />
-  ) : null;
+  ) : (
+    <div className='h-[20vh] flex items-center justify-center font-semibold text-2xl'>
+      Loading...
+    </div>
+  );
 }
 
-const Btns = ({ isPaypal, setPaypal, handleUpdate }: any) => {
+const Btns = ({ isPaypal, setPaypal, handleUpdate, url }: any) => {
   const hiddenBtn = 'hidden';
   const showBtn = 'block';
-  return (
-    <div className='x-spacing py-8 flex flex-col justify-center items-center'>
+  return url === '/checkout' ? (
+    <div className='x-spacing py-8 flex flex-col justify-center items-center z-10'>
       <div className='max-w-xl w-full'>
         <h2 className='text-header pb-4'>Payment Method</h2>
         <ul>
@@ -119,6 +146,8 @@ const Btns = ({ isPaypal, setPaypal, handleUpdate }: any) => {
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 

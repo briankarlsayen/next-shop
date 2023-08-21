@@ -127,7 +127,7 @@ a {
 }
 
 .loading-container {
-  @apply z-[55] overflow-auto bottom-0 right-0 w-full h-full fixed backdrop-blur-lg backdrop-grayscale duration-500 ease-in-out delay-100;
+  @apply z-[99999999999999999] overflow-auto bottom-0 right-0 w-full h-full fixed backdrop-blur-lg backdrop-grayscale duration-500 ease-in-out delay-100;
 }
 .loading-width {
   @apply z-[56] relative p-3 mx-auto my-0 max-w-full w-[600px];

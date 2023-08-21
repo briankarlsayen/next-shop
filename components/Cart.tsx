@@ -80,7 +80,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div className='pb-6'>
           <h2 className='text-2xl pb-6'>Cart Totals</h2>
           <div className='max-w-[35rem] bg-white'>
             <div className='flex justify-between p-4 border-b-2 '>
@@ -142,7 +142,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <FillBtn text='Proceed to checkout' url='/checkout' />
+        <FillBtn text='Proceed to checkout' url='/checkout' className='w-fit' />
       </div>
     );
   };
