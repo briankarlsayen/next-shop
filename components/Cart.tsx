@@ -1,54 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
 import StoreItem from '../components/StoreItem';
-import { CartItem, CartItems, SubTotalPrice } from '../types';
-import Link from 'next/link';
 import FillBtn from '../components/FillBtn';
+import { cartStore } from '../store/CartStore';
+import { updateCartApi } from '../utils/db';
 
 const Cart = () => {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [totalArr, setTotalArr] = useState<SubTotalPrice[]>([
-    {
-      id: 0,
-      subTotal: 0,
-    },
-  ]);
-  const [cartSubTotal, setCartSubTotal] = useState(0);
-  const [callback, setCallback] = useState(false);
-  const [shippingOpt, setShippingOpt] = useState('solo');
+  const { updateCart, updateCartTotal, cart, totalArr, cartSubTotal } =
+    cartStore((state) => state);
 
-  function updateCart(cartArr: any) {
-    localStorage.setItem('cart', JSON.stringify(cartArr));
-    setCallback(!callback);
-  }
-  useEffect(() => {
-    setItems(items);
-  }, [callback]);
-
-  useEffect(() => {
-    const cartItems = localStorage.getItem('cart');
-    if (cartItems) {
-      let parsedCart = JSON.parse(cartItems);
-      setItems(parsedCart);
-      inititalCartTotal(parsedCart);
-    }
-  }, []);
-
-  const inititalCartTotal = (parsedCart: any) => {
-    const cartSubTotalArr = [];
-    for (let value of parsedCart) {
-      cartSubTotalArr.push({ id: value.id, subTotal: value.subTotal });
-    }
-    setTotalArr(cartSubTotalArr);
-    cartFinalSubTotal(cartSubTotalArr);
+  const handleUpdateCart = (cartArr: any) => {
+    updateCartApi(cartArr);
+    updateCart(cartArr);
   };
 
-  const cartFinalSubTotal = (totalArr: SubTotalPrice[]) => {
-    let totalArrSum = 0;
-    for (let value of totalArr) {
-      totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2));
-    }
-    setCartSubTotal(totalArrSum);
-  };
+  const cartFinalSubTotal = () => {};
 
   const ShoppingCartContainer = () => {
     return (
@@ -63,16 +27,16 @@ const Cart = () => {
               <h3 className='basis-1/6 text-subheader-uc'>Subtotal</h3>
             </div>
             <div className='flex flex-col gap-2 py-4 bg-white'>
-              {items.map((item) => {
+              {cart.map((item) => {
                 return (
                   <StoreItem
                     key={item.id}
                     item={item}
-                    items={items}
-                    setItems={setItems}
+                    items={cart}
+                    setItems={updateCart}
                     totalArr={totalArr}
-                    setTotalArr={setTotalArr}
-                    updateCart={updateCart}
+                    setTotalArr={updateCartTotal}
+                    updateCart={handleUpdateCart}
                     cartFinalSubTotal={cartFinalSubTotal}
                   />
                 );
@@ -87,7 +51,7 @@ const Cart = () => {
               <h3 className='text-subheader-uc '>Subtotal</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
             </div>
-            <div className='flex justify-between p-4 border-b-2'>
+            {/* <div className='flex justify-between p-4 border-b-2'>
               <h3 className='text-subheader-uc'>Shipping</h3>
               <form className='basis-1/3'>
                 <ul>
@@ -135,7 +99,7 @@ const Cart = () => {
                   </li>
                 </ul>
               </form>
-            </div>
+            </div> */}
             <div className='flex justify-between p-4'>
               <h3 className='text-subheader-uc'>Total</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
@@ -150,10 +114,7 @@ const Cart = () => {
   return (
     <div>
       <div className='x-spacing py-20'>
-        {/* <div className='text-center'>
-          <h2 className='text-4xl py-12 font-semibold'>Shopping Cart</h2>
-        </div> */}
-        {items.length ? <ShoppingCartContainer /> : <EmptyCart />}
+        {cart.length ? <ShoppingCartContainer /> : <EmptyCart />}
       </div>
     </div>
   );
@@ -162,8 +123,8 @@ const Cart = () => {
 const EmptyCart = () => {
   return (
     <div className='text-center'>
-      <h3 className='text-2xl'>Your cart is currently empty</h3>
-      <FillBtn text='Return to shop' url='/' />
+      <h3 className='text-2xl pb-6'>Your cart is currently empty</h3>
+      <FillBtn text='Return to shop' url='/' className='w-fit' />
     </div>
   );
 };

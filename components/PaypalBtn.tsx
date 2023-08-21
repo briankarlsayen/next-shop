@@ -2,15 +2,16 @@ import { PayPalButtons } from '@paypal/react-paypal-js';
 import React, { useEffect, useState } from 'react';
 import FillBtn from './FillBtn';
 import { checkoutStore } from '../store/CheckoutStore';
-// import { redirect } from 'next/router';
 import { useRouter } from 'next/router';
+import { cartStore } from '../store/CartStore';
+import { emptyCartApi } from '../utils/db';
 
 function PaypalBtn() {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [isPaypal, setPaypal] = useState(true);
-  const { billingInfo, updatePaymentMethod, updateBilling } = checkoutStore(
-    (state) => state
-  );
+  const { updatePaymentMethod, updateStep } = checkoutStore((state) => state);
+  const { cartSubTotal, updateCart } = cartStore((state) => state);
+
   const router = useRouter();
   const url = router.pathname;
   useEffect(() => {
@@ -38,7 +39,7 @@ function PaypalBtn() {
               purchase_units: [
                 {
                   amount: {
-                    value: billingInfo.cartSubTotal.toString(),
+                    value: cartSubTotal.toString(),
                   },
                 },
               ],
@@ -46,7 +47,7 @@ function PaypalBtn() {
           },
           onApprove: function (data, actions): any {
             return actions.order?.capture().then(function (details) {
-              router.push('/checkout/order');
+              handleSubmit();
             });
           },
         })
@@ -63,24 +64,17 @@ function PaypalBtn() {
     updatePaymentMethod(e?.target?.value);
   };
 
-  const cartFinalSubTotal = () => {
-    const cartItems = localStorage?.getItem('cart');
-    let totalArrSum = 0;
-    if (cartItems) {
-      let parsedCart = JSON.parse(cartItems);
-      for (let value of parsedCart) {
-        totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2));
-      }
-    }
-    return totalArrSum;
+  const handleSubmit = () => {
+    updateStep(1);
+    router.push({
+      pathname: '/checkout/order',
+      query: {
+        cartSubTotal,
+      },
+    });
+    emptyCartApi();
+    updateCart([]);
   };
-
-  const initializeData = () => {
-    updateBilling({ cartSubTotal: cartFinalSubTotal() });
-  };
-  useEffect(() => {
-    initializeData();
-  }, []);
 
   return scriptLoaded ? (
     <Btns
@@ -88,6 +82,7 @@ function PaypalBtn() {
       setPaypal={setPaypal}
       handleUpdate={handleUpdate}
       url={url}
+      handleSubmit={handleSubmit}
     />
   ) : (
     <div className='h-[20vh] flex items-center justify-center font-semibold text-2xl'>
@@ -96,7 +91,13 @@ function PaypalBtn() {
   );
 }
 
-const Btns = ({ isPaypal, setPaypal, handleUpdate, url }: any) => {
+const Btns = ({
+  isPaypal,
+  setPaypal,
+  handleUpdate,
+  url,
+  handleSubmit,
+}: any) => {
   const hiddenBtn = 'hidden';
   const showBtn = 'block';
   return url === '/checkout' ? (
@@ -139,7 +140,7 @@ const Btns = ({ isPaypal, setPaypal, handleUpdate, url }: any) => {
             id='alternate-button-container'
             className={!isPaypal ? showBtn : hiddenBtn}
           >
-            <FillBtn text='Cash' url='/checkout/order' />
+            <FillBtn text='Cash' handleSubmit={handleSubmit} />
           </div>
         </div>
       </div>

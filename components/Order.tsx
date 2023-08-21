@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { CartItem } from '../types';
+import { useRouter } from 'next/router';
 import { checkoutStore } from '../store/CheckoutStore';
 
 const Order = () => {
-  const [items, setItems] = useState<CartItem[]>([]);
-
   const { billingInfo, paymentMethod } = checkoutStore((state) => state);
+  const router = useRouter();
+
+  const { cartSubTotal } = router.query ?? 0;
 
   const shippingOpts = [
     {
@@ -28,7 +28,7 @@ const Order = () => {
   const orderDetails = {
     id: 'OR16941',
     createdAt: new Date(2022, 9, 16, 2, 37).toString(),
-    totalPay: billingInfo.cartSubTotal,
+    totalPay: cartSubTotal,
     payMethod: paymentMethod,
     shipping,
   };
@@ -36,7 +36,7 @@ const Order = () => {
   return (
     <div className='w-full'>
       <div className='max-w-3xl mx-auto x-spacing min-h-screen'>
-        <h2 className='text-4xl text-center py-12'>Order Confirmation</h2>
+        <h2 className='text-4xl text-center py-12'>Order Receipt</h2>
         <div>
           <div className='flex'>
             <p className='basis-1/2'>Order number:</p>
@@ -63,12 +63,9 @@ const Order = () => {
             <h4 className='text-subheader-uc basis-1/2'>Product</h4>
             <h4 className='text-subheader-uc basis-1/2'>Total</h4>
           </div>
-          {items.map((item) => {
-            return <OrderItem key={item.id} item={item} />;
-          })}
           <div className='flex'>
             <h4 className='text-subheader-uc basis-1/2'>Subtotal</h4>
-            <p>${billingInfo.cartSubTotal}</p>
+            <p>${cartSubTotal}</p>
           </div>
           <div className='flex'>
             <h4 className='text-subheader-uc basis-1/2'>Shipping</h4>
@@ -80,7 +77,7 @@ const Order = () => {
           </div>
           <div className='flex'>
             <h4 className='text-subheader-uc basis-1/2'>Total</h4>
-            <p className='basis-1/2'>${billingInfo.cartSubTotal}</p>
+            <p className='basis-1/2'>${cartSubTotal}</p>
           </div>
         </div>
       </div>

@@ -14,7 +14,6 @@ const billingInfo = {
   phone: '',
   email: '',
   shippingOpt: 'solo',
-  cartSubTotal: 0
 };
 const step = 1
 const MAX_STEP = 3

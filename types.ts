@@ -57,6 +57,7 @@ export interface FillBtnProps {
   url?: string;
   type?: 'button' | 'submit' | 'reset',
   className?: string
+  handleSubmit?: () => void
 }
 
 export interface ErrorInputProps {

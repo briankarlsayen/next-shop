@@ -1,23 +1,25 @@
 import Link from 'next/link';
+import { cartStore } from '../store/CartStore';
+import { updateCartApi } from '../utils/db';
 const ProductCard = (props: any) => {
+  const { updateCart, cart } = cartStore((state) => state);
+
   const handleAddCart = () => {
-    const cartItems = localStorage.getItem('cart');
-    if (cartItems) {
-      let parsedCart = JSON.parse(cartItems);
-      const duplicateItem = parsedCart.filter(
-        (cart: any) => cart.id === props.id
-      );
+    if (cart) {
+      const duplicateItem = cart.filter((cart: any) => cart.id === props.id);
       if (duplicateItem.length) {
         console.log('item already in cart');
       } else {
         const withItemCount = { ...props, quantity: 1, subTotal: props.price };
-        const updateCart = [...parsedCart, withItemCount];
-        localStorage.setItem('cart', JSON.stringify(updateCart));
+        const updatedCart = [...cart, withItemCount];
+        updateCart(updatedCart);
+        updateCartApi(updatedCart);
       }
     } else {
       console.log('item added to cart');
       const createCart = [{ ...props, quantity: 1, subTotal: props.price }];
-      localStorage.setItem('cart', JSON.stringify(createCart));
+      updateCart(createCart);
+      updateCartApi(createCart);
     }
   };
 

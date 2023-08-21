@@ -8,10 +8,10 @@ import Breadcrumb from '../components/Breadcrumb';
 import BreadcrumbItem from '../components/BreadcrumbItem';
 import { BreadCrumbProps } from '../types';
 import Loading from '../components/Loading';
-import { checkoutStore } from '../store/CheckoutStore';
+import { cartStore } from '../store/CartStore';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { updateBilling } = checkoutStore((state) => state);
+  const { updateCart, updateCartTotal } = cartStore((state) => state);
   const router = useRouter();
   const [breadcrumbs, setBreadcrumbs] = useState<BreadCrumbProps[]>([]);
   const [loading, setLoading] = useState(false);
@@ -28,9 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   useEffect(() => {
-    // const pathWithoutQuery = router.asPath.split("")[0];
-    // let pathArray = pathWithoutQuery.split("/");
-    let pathArray = router.asPath.split('/');
+    let pathArray = router.asPath.replace(/\?.*$/, '').split('/');
     pathArray.shift();
 
     pathArray = pathArray.filter((path) => path !== '');
@@ -52,21 +50,23 @@ function MyApp({ Component, pageProps }: AppProps) {
     loadingHandler();
   }, [router.asPath]);
 
-  const cartFinalSubTotal = () => {
-    const cartItems = localStorage?.getItem('cart');
-    let totalArrSum = 0;
+  const initializeData = () => {
+    const cartItems = localStorage.getItem('cart');
     if (cartItems) {
       let parsedCart = JSON.parse(cartItems);
-      for (let value of parsedCart) {
-        totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2));
-      }
+      updateCart(parsedCart);
+      inititalCartTotal(parsedCart);
     }
-    return totalArrSum;
   };
 
-  const initializeData = () => {
-    updateBilling({ cartSubTotal: cartFinalSubTotal() });
+  const inititalCartTotal = (parsedCart: any) => {
+    const cartSubTotalArr = [];
+    for (let value of parsedCart) {
+      cartSubTotalArr.push({ id: value.id, subTotal: value.subTotal });
+    }
+    updateCartTotal(cartSubTotalArr);
   };
+
   useEffect(() => {
     initializeData();
   }, []);

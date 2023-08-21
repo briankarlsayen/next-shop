@@ -83,7 +83,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
     };
   } catch (error) {
-    console.log('error', error);
     return { notFound: true };
   }
 };

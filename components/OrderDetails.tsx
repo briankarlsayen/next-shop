@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { CartItem } from '../types';
+import React, { useState } from 'react';
 import FillBtn from './FillBtn';
 import { checkoutStore } from '../store/CheckoutStore';
+import { cartStore } from '../store/CartStore';
 
 const ProductItem = ({ item }: any) => {
   return (
@@ -15,31 +15,10 @@ const ProductItem = ({ item }: any) => {
 };
 
 const OrderDetails = () => {
-  const [items, setItems] = useState([]);
-  const [cartSubTotal, setCartSubTotal] = useState(0);
+  const { cart, cartSubTotal } = cartStore((state) => state);
   const [shippingOpt, setShippingOpt] = useState('solo');
 
-  const { billingInfo, step, updateBilling, updateStep } = checkoutStore(
-    (state) => state
-  );
-
-  // * get items data
-  useEffect(() => {
-    const cartItems = localStorage.getItem('cart');
-    if (cartItems) {
-      let parsedCart = JSON.parse(cartItems);
-      setItems(parsedCart);
-      cartFinalSubTotal(parsedCart);
-    }
-  }, []);
-
-  const cartFinalSubTotal = (totalArr: CartItem[]) => {
-    let totalArrSum = 0;
-    for (let value of totalArr) {
-      totalArrSum = parseFloat((totalArrSum + value.subTotal).toFixed(2));
-    }
-    setCartSubTotal(totalArrSum);
-  };
+  const { updateBilling, updateStep } = checkoutStore((state) => state);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -73,8 +52,8 @@ const OrderDetails = () => {
         </div>
         <div>
           <ul>
-            {items.length
-              ? items.map((item: any) => {
+            {cart.length
+              ? cart.map((item: any) => {
                   return <ProductItem key={item.id} item={item} />;
                 })
               : null}
@@ -97,7 +76,7 @@ const OrderDetails = () => {
                         type='radio'
                         name='shippingOpt'
                         id='shippingOpt'
-                        value='solo'
+                        value={opt.value}
                         onChange={(e) => setShippingOpt(e.target.value)}
                         checked={shippingOpt === opt.value}
                       />
