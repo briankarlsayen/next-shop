@@ -17,9 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
 
   const loadingHandler = () => {
-    console.log('loading...');
     const handleStart = (url: any) => {
-      console.log('url', url);
       url !== router.pathname ? setLoading(true) : setLoading(false);
     };
     const handleComplete = (url: any) => setLoading(false);
@@ -36,6 +34,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     pathArray.shift();
 
     pathArray = pathArray.filter((path) => path !== '');
+
+    if (router.pathname === '/shop/[type]') {
+      pathArray = ['shop'];
+    }
 
     const breadcrumbsarr = pathArray.map((path, index) => {
       const href = '/' + pathArray.slice(0, index + 1).join('/');

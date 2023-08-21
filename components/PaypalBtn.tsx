@@ -13,7 +13,6 @@ function PaypalBtn() {
   );
   const router = useRouter();
   const url = router.pathname;
-  console.log('router', router);
   useEffect(() => {
     const addPaypalScript = () => {
       const script = document.createElement('script');
@@ -47,7 +46,6 @@ function PaypalBtn() {
           },
           onApprove: function (data, actions): any {
             return actions.order?.capture().then(function (details) {
-              console.log('data', details);
               router.push('/checkout/order');
             });
           },
