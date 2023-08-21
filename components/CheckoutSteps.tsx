@@ -73,7 +73,7 @@ const ProgressBar = ({ updateStep, step }: ProgressBarProps) => {
 
       <div className='flex text-xs content-center text-center justify-between'>
         {steps.map((data) => (
-          <p>{data}</p>
+          <p key={data}>{data}</p>
         ))}
       </div>
     </div>

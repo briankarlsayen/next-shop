@@ -90,7 +90,7 @@ const OrderDetails = () => {
             <ul>
               {shippingOpts.map((opt) => {
                 return (
-                  <li className='flex'>
+                  <li className='flex' key={opt.value}>
                     <label htmlFor='shippingOpt'>
                       <input
                         className='mr-2'

@@ -7,7 +7,7 @@ interface LoadingProps {
 
 const Loading = (props: LoadingProps) => {
   return props.loading ? (
-    <div className='loading-container z-50'>
+    <div className='loading-container'>
       <div className='loading-width'>
         <div className='loading'>
           <img
