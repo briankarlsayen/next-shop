@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { cartStore } from '../store/CartStore';
 import { updateCartApi } from '../utils/db';
+import toast from 'react-hot-toast';
+
 const ProductCard = (props: any) => {
   const { updateCart, cart } = cartStore((state) => state);
 
@@ -9,17 +11,21 @@ const ProductCard = (props: any) => {
       const duplicateItem = cart.filter((cart: any) => cart.id === props.id);
       if (duplicateItem.length) {
         console.log('item already in cart');
+        toast.error('Item Already on Cart');
       } else {
         const withItemCount = { ...props, quantity: 1, subTotal: props.price };
         const updatedCart = [...cart, withItemCount];
         updateCart(updatedCart);
         updateCartApi(updatedCart);
+        toast.success('Successfully Added to Cart');
       }
     } else {
       console.log('item added to cart');
       const createCart = [{ ...props, quantity: 1, subTotal: props.price }];
       updateCart(createCart);
       updateCartApi(createCart);
+      console.log('add');
+      toast('Successfully Added to Cart');
     }
   };
 

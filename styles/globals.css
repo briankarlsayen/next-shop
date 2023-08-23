@@ -127,14 +127,10 @@ a {
 }
 
 .loading-container {
-  @apply z-[99999999999999999] overflow-auto bottom-0 right-0 w-full h-full fixed backdrop-blur-lg backdrop-grayscale duration-500 ease-in-out delay-100;
+  @apply z-[99999999999999999] overflow-hidden bottom-0 right-0 w-full h-full fixed backdrop-blur-lg backdrop-grayscale duration-500 ease-in-out delay-100;
 }
 .loading-width {
-  @apply z-[56] relative p-3 mx-auto my-0 max-w-full w-[600px];
-}
-.loading {
-  @apply relative top-[350px] flex-col overflow-hidden z-10 ease-linear p-5 justify-center animate-spin
-  flex align-middle items-center w-full;
+  @apply absolute h-full w-full flex items-center bg-inherit transition-opacity duration-300 justify-center flex-col;
 }
 
 .step-circle-active {

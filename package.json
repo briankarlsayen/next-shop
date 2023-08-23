@@ -12,9 +12,13 @@
     "@paypal/react-paypal-js": "^8.1.1",
     "@react-google-maps/api": "^2.12.2",
     "google-map-react": "^2.2.0",
+    "lottie-react": "^2.4.0",
+    "mapbox-gl": "^2.15.0",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-map-gl": "^7.1.4",
     "react-paypal-button-v3": "^3.0.2",
     "zustand": "^4.4.1"
   },

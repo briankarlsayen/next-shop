@@ -3,6 +3,7 @@ import { Product } from '../types';
 import Link from 'next/link';
 import { cartStore } from '../store/CartStore';
 import { updateCartApi } from '../utils/db';
+import Button from './Button';
 
 type ProductProps = {
   product: Product;
@@ -103,12 +104,12 @@ const Product = ({ product, products }: ProductProps) => {
                   </div>
                   <div className='flex w-full gap-x-2'>
                     {!itemDuplicate ? (
-                      <button
-                        className='cursor-pointer text-white px-4 py-2 hero-btn !w-full rounded-sm'
+                      <Button
+                        text='Add to Cart'
                         onClick={handleAddCart}
-                      >
-                        Add to Cart
-                      </button>
+                        toastMessage={'Successfully Added to Cart'}
+                        size='full'
+                      />
                     ) : (
                       <button
                         className='w-full font-semibold uppercase cursor-pointer  bg-gray-300 text-black px-4 py-2 rounded-sm'
@@ -117,7 +118,7 @@ const Product = ({ product, products }: ProductProps) => {
                         <Link href='/cart'>View Cart</Link>
                       </button>
                     )}
-                    <button
+                    {/* <button
                       className='w-12 items-center p-1 hover:bg-[#b29146] bg-[#CBA95D] rounded-sm'
                       onClick={handleFavorite}
                     >
@@ -126,7 +127,7 @@ const Product = ({ product, products }: ProductProps) => {
                         src={favorite ? '/heart-filled.svg' : '/heart.svg'}
                         alt='heart'
                       />
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

@@ -9,6 +9,7 @@ import BreadcrumbItem from '../components/BreadcrumbItem';
 import { BreadCrumbProps } from '../types';
 import Loading from '../components/Loading';
 import { cartStore } from '../store/CartStore';
+import ToasterComponent from '../components/ToasterComponent';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { updateCart, updateCartTotal } = cartStore((state) => state);
@@ -95,6 +96,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Breadcrumb>
       <Component {...pageProps} />
       <Footer />
+      <ToasterComponent />
     </div>
   );
 }
