@@ -1,7 +1,7 @@
 
 
 export const subscriptionApi = async (email: string) => {
-  const response = await fetch("http://localhost:5900/global/sendmail", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/global/sendmail`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
