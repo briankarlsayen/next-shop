@@ -6,6 +6,10 @@ import { updateCartApi } from '../utils/db';
 const Cart = () => {
   const { updateCart, updateCartTotal, cart, totalArr, cartSubTotal } =
     cartStore((state) => state);
+  let totalQuantity = 0;
+  for (const item of cart) {
+    totalQuantity += item.quantity;
+  }
 
   const handleUpdateCart = (cartArr: any) => {
     updateCartApi(cartArr);
@@ -47,59 +51,10 @@ const Cart = () => {
         <div className='pb-6'>
           <h2 className='text-2xl pb-6'>Cart Totals</h2>
           <div className='max-w-[35rem] bg-white'>
-            <div className='flex justify-between p-4 border-b-2 '>
-              <h3 className='text-subheader-uc '>Subtotal</h3>
-              <p className='basis-1/3'>${cartSubTotal}</p>
+            <div className='flex justify-between p-4 '>
+              <h3 className='text-subheader-uc'>Quantity</h3>
+              <p className='basis-1/3'>{totalQuantity}</p>
             </div>
-            {/* <div className='flex justify-between p-4 border-b-2'>
-              <h3 className='text-subheader-uc'>Shipping</h3>
-              <form className='basis-1/3'>
-                <ul>
-                  <li className='flex'>
-                    <label htmlFor='shippingOpt'>
-                      <input
-                        className='mr-2'
-                        type='radio'
-                        name='shippingOpt'
-                        id='shippingOpt'
-                        value='solo'
-                        onChange={(e) => setShippingOpt(e.target.value)}
-                        checked={shippingOpt === 'solo'}
-                      />
-                    </label>
-                    Flat rate
-                  </li>
-                  <li className='flex'>
-                    <label htmlFor='shippingOpt'>
-                      <input
-                        className='mr-2'
-                        type='radio'
-                        name='shippingOpt'
-                        id='shippingOpt'
-                        value='free-ship'
-                        onChange={(e) => setShippingOpt(e.target.value)}
-                        checked={shippingOpt === 'free-ship'}
-                      />
-                      Free shipping
-                    </label>
-                  </li>
-                  <li className='flex'>
-                    <label htmlFor='shippingOpt'>
-                      <input
-                        className='mr-2'
-                        type='radio'
-                        name='shippingOpt'
-                        id='shippingOpt'
-                        value='local'
-                        onChange={(e) => setShippingOpt(e.target.value)}
-                        checked={shippingOpt === 'local'}
-                      />
-                      Local pickup
-                    </label>
-                  </li>
-                </ul>
-              </form>
-            </div> */}
             <div className='flex justify-between p-4'>
               <h3 className='text-subheader-uc'>Total</h3>
               <p className='basis-1/3'>${cartSubTotal}</p>
