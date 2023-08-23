@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { subscriptionApi } from '../pages/api';
-import ComponentLoading from './ComponentLoading';
 import Button from './Button';
+import toast from 'react-hot-toast';
 
 export const Footer = () => {
   const [email, setEmail] = useState('');
@@ -13,6 +13,7 @@ export const Footer = () => {
     await subscriptionApi(email);
     setLoading(false);
     setSubscribed(true);
+    toast.success('Successfully Subscribed to the News Letter');
   };
 
   const subscribeContent = () => {
@@ -40,7 +41,9 @@ export const Footer = () => {
           </div>
         ) : (
           <div className='max-w-[40rem] text-center my-auto'>
-            <h2 className='text-header'>Thank you for subscribing.</h2>
+            <h2 className='text-header'>
+              Thank you for subscribing to our new letter.
+            </h2>
           </div>
         )}
       </div>

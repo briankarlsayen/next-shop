@@ -4,7 +4,9 @@ import toast from 'react-hot-toast';
 
 function Button({ text, onClick, loading, toastMessage, size }: any) {
   const handleClick = () => {
-    onClick();
+    if (onClick) {
+      onClick();
+    }
     if (toastMessage) toast.success(toastMessage);
   };
 
@@ -12,7 +14,7 @@ function Button({ text, onClick, loading, toastMessage, size }: any) {
 
   return (
     <button
-      className={`hero-btn text-center items-center justify-center ${btnSize}`}
+      className={`hero-btn text-center items-center justify-center flex ${btnSize}`}
       onClick={handleClick}
       type='submit'
     >
