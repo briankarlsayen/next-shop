@@ -4,6 +4,7 @@ import { Categories } from "../components/Categories";
 import { Featured } from "../components/Featured";
 import Hero from "../components/Hero";
 import { Product } from "../types";
+import { apiStoreUrl } from "../utils/db";
 
 const Home: NextPage<{ products: Product[]; categories: any }> = ({
   products,
@@ -80,17 +81,15 @@ const Home: NextPage<{ products: Product[]; categories: any }> = ({
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const res = await fetch("https://fakestoreapi.com/products/");
+    const res = await fetch(apiStoreUrl + "/products/");
     const products = await res.json();
 
-    const getCategories = await fetch(
-      "https://fakestoreapi.com/products/categories"
-    );
+    const getCategories = await fetch(apiStoreUrl + "/products/categories");
     const categories = await getCategories.json();
     return {
       props: {
-        products,
-        categories,
+        products: products?.data,
+        categories: categories?.data,
       },
     };
   } catch (error) {
