@@ -1,7 +1,7 @@
-import Lottie from 'lottie-react';
-import '../styles/Loading.module.css';
-import shopLoading from '../assets/shop-loading.json';
-import { useEffect, useState } from 'react';
+// import Lottie from "lottie-react";
+import "../styles/Loading.module.css";
+// import shopLoading from "../assets/shop-loading.json";
+import { useEffect, useState } from "react";
 interface LoadingProps {
   loading: boolean;
 }
@@ -29,9 +29,9 @@ const Loading = (props: LoadingProps) => {
           : `opacity-0 z-0 invisible`
       }
     >
-      <div className='loading-width'>
-        <Lottie animationData={shopLoading} loop={true} />
-        <h2 className='text-header'>Loading{Array(dotCount).fill('.')}</h2>
+      <div className="loading-width">
+        {/* <Lottie animationData={shopLoading} loop={true} /> */}
+        <h2 className="text-header">Loading{Array(dotCount).fill(".")}</h2>
         <p>We are making things ready for you.</p>
       </div>
     </div>
