@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap");
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   background-color: #f1f1f1;
   /* background-color: white; */
 }
 
 .hero-title-font {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
 }
 
 .hero-title span {
@@ -40,9 +40,9 @@ a {
   display: none;
 }
 
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 .text-custom-green {
   @apply text-[#2C5F3E];
@@ -74,6 +74,10 @@ a {
 
 .logo {
   @apply hero-title-font font-bold text-2xl text-[#2C5F3E];
+}
+.logo img {
+  filter: brightness(0) saturate(100%) invert(26%) sepia(16%) saturate(1071%)
+    hue-rotate(95deg) brightness(92%) contrast(89%);
 }
 
 .title {
